@@ -84,7 +84,10 @@ const plans = [
 <style scoped>
 .membership-section {
   padding: 100px 24px;
-  background: var(--color-dark);
+  background:
+    linear-gradient(to bottom, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.92) 100%),
+    url('/src/assets/images/membership-banner.webp') center/cover no-repeat;
+  background-color: var(--color-dark);
 }
 .membership-inner { max-width: 1200px; margin: 0 auto; }
 .section-header { text-align: center; margin-bottom: 56px; }
@@ -122,5 +125,10 @@ const plans = [
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
+}
+@media (max-width: 768px) {
+  .membership-section { padding: 80px 20px; }
+  .plans-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .benefits-grid { grid-template-columns: 1fr; padding: 24px; }
 }
 </style>

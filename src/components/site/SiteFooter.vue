@@ -97,5 +97,8 @@
 .dashboard-link { color: var(--color-gold); transition: opacity 0.3s; }
 .dashboard-link:hover { opacity: 0.7; }
 @media (max-width: 900px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 500px) { .footer-inner { grid-template-columns: 1fr; } }
+@media (max-width: 500px) {
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
 </style>

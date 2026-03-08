@@ -92,4 +92,10 @@ const slides = [
   transition: transform 0.6s ease;
 }
 .photo-card:hover .photo-img { transform: scale(1.04); }
+@media (max-width: 640px) {
+  .modern-section { padding: 40px 0 80px; }
+  .section-header { padding-top: 100px; margin-bottom: 32px; }
+  .carousel-heading { font-size: 0.95rem; padding: 0 16px; }
+  .photo-swiper { padding-left: 16px !important; padding-right: 16px !important; }
+}
 </style>

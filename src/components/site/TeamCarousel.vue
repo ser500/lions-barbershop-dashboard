@@ -122,5 +122,8 @@ const team = [
 }
 .member-role { font-size: 0.78rem; color: var(--color-gray-light); margin-bottom: 8px; }
 .member-specialty { font-size: 0.75rem; color: var(--color-gray); margin-bottom: 20px; line-height: 1.5; }
-.team-btn { font-size: 0.72rem; padding: 9px 18px; }
+.team-btn { font-size: 0.72rem; padding: 9px 18px; min-height: 44px; }
+@media (max-width: 640px) {
+  .team-section { padding: 80px 0; }
+}
 </style>

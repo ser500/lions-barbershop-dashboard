@@ -15,16 +15,17 @@
         <li class="nav-sep">|</li>
         <li><a href="#team" @click="track('Team', '#team', 'nav')">TEAM</a></li>
       </ul>
-      <button class="hamburger" @click="menuOpen = !menuOpen" aria-label="Menu">
+      <button class="hamburger" :class="{ open: menuOpen }" @click="menuOpen = !menuOpen" aria-label="Menu">
         <span /><span /><span />
       </button>
     </div>
     <div class="mobile-menu" :class="{ open: menuOpen }">
+      <a href="#home" @click="menuOpen = false">HOME</a>
       <a href="#services" @click="menuOpen = false">SERVICES</a>
       <a href="#memberships" @click="menuOpen = false">MEMBERSHIPS</a>
       <a href="#gallery" @click="menuOpen = false">GALLERY</a>
       <a href="#team" @click="menuOpen = false">TEAM</a>
-      <a href="https://vagaro.com/lionsloungebarbershop" target="_blank" class="btn-gold"
+      <a href="https://vagaro.com/lionsloungebarbershop" target="_blank" class="btn-gold mobile-book"
         @click="trackIntent('Book Now - Mobile Nav', 'https://vagaro.com/lionsloungebarbershop')">
         BOOK NOW
       </a>
@@ -107,13 +108,26 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   flex-direction: column;
   gap: 5px;
   margin-left: auto;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
 }
 .hamburger span {
   display: block;
   width: 24px;
   height: 2px;
   background: var(--color-white);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
 }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .mobile-menu {
   display: none;
   flex-direction: column;
@@ -128,6 +142,16 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   font-size: 0.9rem;
   letter-spacing: 2px;
   color: var(--color-white);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.mobile-book {
+  justify-content: center;
+  text-align: center;
+  min-height: 48px;
+  border-radius: 6px;
+  font-size: 0.78rem;
 }
 @media (max-width: 768px) {
   .nav-links { display: none; }

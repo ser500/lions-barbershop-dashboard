@@ -144,5 +144,10 @@ const socials = [
   transition: color 0.3s;
 }
 .social-link:hover { color: var(--color-gold); }
-@media (max-width: 640px) { .hours-social { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .hours-social { grid-template-columns: 1fr; }
+  .booking-section { padding: 80px 16px; }
+  .booking-option { min-height: 72px; }
+  .booking-options { grid-template-columns: 1fr; }
+}
 </style>

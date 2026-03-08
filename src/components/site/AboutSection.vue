@@ -22,10 +22,7 @@
       </div>
       <div class="about-visual reveal">
         <div class="visual-box">
-          <div class="visual-inner">
-            <span class="big-icon">💈</span>
-            <p class="visual-tagline">Redefining the<br><strong>Modern Barber Experience</strong></p>
-          </div>
+          <img src="/src/assets/images/backgrounds/about-bg.webp" alt="Lion's Lounge interior" class="about-photo" />
         </div>
       </div>
     </div>
@@ -81,38 +78,24 @@ useScrollReveal()
 }
 .about-visual { display: flex; justify-content: center; }
 .visual-box {
-  width: 360px;
-  height: 360px;
-  border: 2px solid rgba(201,168,76,0.3);
+  width: 420px;
+  max-width: 100%;
   border-radius: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-2) 100%);
+  overflow: hidden;
+  border: 2px solid rgba(201,168,76,0.25);
   position: relative;
 }
-.visual-box::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, var(--color-gold) 0%, transparent 50%);
-  opacity: 0.15;
-  pointer-events: none;
+.about-photo {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
 }
-.visual-inner { text-align: center; }
-.big-icon { font-size: 4rem; display: block; margin-bottom: 20px; }
-.visual-tagline {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 1px;
-  text-align: center;
-  color: var(--color-white);
-  line-height: 1.6;
-}
-.visual-tagline strong { color: var(--color-gold); }
 @media (max-width: 900px) {
   .about-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .about-section { padding: 80px 20px; }
   .about-visual { display: none; }
 }
 </style>

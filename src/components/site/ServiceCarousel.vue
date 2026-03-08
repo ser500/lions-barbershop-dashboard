@@ -180,6 +180,10 @@ const addOnServices = [
   line-height: 1.6;
   margin-bottom: 20px;
 }
-.service-btn { font-size: 0.72rem; padding: 9px 20px; }
+.service-btn { font-size: 0.72rem; padding: 9px 20px; min-height: 44px; }
 .addon-card { background: rgba(26,26,26,0.6); }
+@media (max-width: 640px) {
+  .services-section { padding: 80px 0; }
+  .carousel-block { padding: 0 12px; margin-bottom: 40px; }
+}
 </style>

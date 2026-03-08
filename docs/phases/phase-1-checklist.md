@@ -15,14 +15,14 @@
 - [x] Two CTAs: gold "Become a MEMBER" + white "Book Now" — equal width, SVG icons
 - [x] GSAP stagger entrance animation
 - [x] Scroll indicator at bottom center
-- [ ] Mobile: full-width text block, reduced font
+- [x] Mobile: full-width text block, reduced font
 
 ## Navbar
 - [x] Real logo image (not emoji text)
 - [x] HOME | SERVICES | MEMBERSHIPS | GALLERY | TEAM with pipe separators
 - [x] No Book Now button in nav (matches source)
 - [x] Scroll-shrink with backdrop blur
-- [ ] Mobile hamburger working
+- [x] Mobile hamburger working
 
 ## Modern Carousel (Gallery)
 - [x] 6 real shop photos
@@ -30,7 +30,7 @@
 - [x] No text on cards
 - [x] Overlaps hero bottom (margin-top: -160px)
 - [x] Hero fades to black at bottom seamlessly
-- [ ] Heading typography match
+- [x] Heading typography match
 
 ## Services
 - [x] 7 core services with real SVG icons in gold-bordered circles
@@ -43,7 +43,7 @@
 - [x] Benefits grid
 - [x] BLACK / GOLD / ESSENTIAL plan cards with real pricing
 - [x] Highlight ring on BLACK plan
-- [ ] Membership background image (membership-banner.webp)
+- [x] Membership background image (membership-banner.webp)
 
 ## Reviews
 - [x] Real reviewer names (Christophe, Charles, Nick, Peter)

@@ -25,34 +25,31 @@ Last updated: 2026-03-08
 - [x] SiteFooter — real logo, social links, staff dashboard link
 - [x] All 46 image assets downloaded and wired (gallery, team, reviews, backgrounds, services, logo)
 
-### 🔧 In Progress
-- [ ] Pixel-perfect hero alignment (source comparison ongoing)
-- [ ] Services section card background images
-- [ ] Membership section background image
-- [ ] About section real photo
+### ✅ Done (continued)
+- [x] Membership section background image (membership-banner.webp wired with dark overlay)
+- [x] About section real photo (about-bg.webp replacing placeholder visual box)
 
 ### ⬜ Remaining
-- [ ] Mobile optimization (Phase 1.5)
+- [ ] Services section card background images
 - [ ] Cross-browser QA
 
 ---
 
 ## Phase 1.5 — Mobile Optimization
 
-### ⬜ To Do
-- [ ] NavBar hamburger menu polish
-- [ ] HeroSection — font scale, text block full-width on mobile
-- [ ] ModernCarousel — 1.1 slides-per-view, reduced padding
-- [ ] ServiceCarousel — 1.2 slides
-- [ ] TeamCarousel — 1.2 slides
-- [ ] MembershipSection — single column plan cards
-- [ ] BookingSection — single column booking options
-- [ ] HoursSection — single column
-- [ ] ReviewsSection — single column
-- [ ] AboutSection — hide visual box
-- [ ] Footer — stacked layout
-- [ ] Touch targets: all buttons ≥ 44px
-- [ ] Viewport meta confirmed
+### ✅ Done
+- [x] NavBar hamburger menu polish (X animation, touch target 44px, HOME link added)
+- [x] HeroSection — font scale (clamp 2.2rem–2.6rem on mobile), full-width text block, stacked CTAs
+- [x] ModernCarousel — reduced padding on mobile, heading font scaled
+- [x] ServiceCarousel — touch targets on book buttons (min-height 44px)
+- [x] TeamCarousel — touch targets, section padding reduced
+- [x] MembershipSection — single column plan cards, single column benefits grid
+- [x] BookingSection — single column booking options, touch targets
+- [x] ReviewsSection — single column on ≤640px
+- [x] AboutSection — hide visual box on ≤640px
+- [x] Footer — stacked layout on ≤500px (footer-bottom column)
+- [x] Touch targets: all buttons ≥ 44px
+- [x] Viewport meta confirmed
 
 ---
 

@@ -95,4 +95,8 @@ const reviews = [
 }
 .reviewer-name { font-weight: 600; font-size: 0.9rem; }
 .reviewer-meta { font-size: 0.75rem; color: var(--color-gray); }
+@media (max-width: 640px) {
+  .reviews-section { padding: 80px 16px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+}
 </style>

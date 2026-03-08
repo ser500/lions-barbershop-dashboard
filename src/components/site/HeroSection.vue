@@ -171,4 +171,21 @@ onMounted(() => {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(8px); }
 }
+@media (max-width: 768px) {
+  .hero-content {
+    width: 90%;
+    max-width: none;
+    padding: 0 24px 80px;
+  }
+  .line1, .line2 {
+    font-size: clamp(2.6rem, 10vw, 3.5rem);
+    white-space: normal;
+  }
+  .hero-sub { max-width: 100%; font-size: 0.83rem; }
+  .hero-ctas { flex-direction: column; }
+  .btn-member, .btn-book { min-height: 48px; }
+}
+@media (max-width: 480px) {
+  .line1, .line2 { font-size: clamp(2.2rem, 9vw, 2.8rem); }
+}
 </style>
