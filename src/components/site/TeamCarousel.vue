@@ -83,7 +83,9 @@ const team = [
   text-transform: uppercase;
   margin-bottom: 12px;
 }
+:deep(.swiper-slide) { height: auto; }
 .team-card {
+  height: 100%;
   background: var(--color-dark-2);
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 12px;
