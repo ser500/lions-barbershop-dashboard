@@ -2,7 +2,7 @@
   <section class="about-section" id="about">
     <div class="about-inner">
       <div class="about-text reveal">
-        <p class="eyebrow">💈 OUR STORY</p>
+        <p class="eyebrow">OUR STORY</p>
         <h2 class="section-title">Welcome to <span>Lion's Lounge</span></h2>
         <div class="gold-line" style="margin:16px 0"></div>
         <p>

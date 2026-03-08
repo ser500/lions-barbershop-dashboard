@@ -1,7 +1,7 @@
 <template>
   <section class="services-section" id="services">
     <div class="section-header reveal">
-      <p class="eyebrow">✂️ WHAT WE OFFER</p>
+      <p class="eyebrow">WHAT WE OFFER</p>
       <h2 class="section-title">OUR <span>SERVICES</span></h2>
       <div class="gold-line"></div>
     </div>

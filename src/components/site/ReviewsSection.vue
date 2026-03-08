@@ -2,7 +2,7 @@
   <section class="reviews-section" id="reviews">
     <div class="reviews-inner">
       <div class="section-header reveal">
-        <p class="eyebrow">⭐ WHAT THEY SAY</p>
+        <p class="eyebrow">WHAT THEY SAY</p>
         <h2 class="section-title">1000+ <span>REVIEWS</span></h2>
         <div class="gold-line"></div>
         <div class="stars-row">⭐⭐⭐⭐⭐</div>

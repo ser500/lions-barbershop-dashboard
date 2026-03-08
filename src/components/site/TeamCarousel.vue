@@ -1,7 +1,7 @@
 <template>
   <section class="team-section" id="team">
     <div class="section-header reveal">
-      <p class="eyebrow">💈 MEET THE CREW</p>
+      <p class="eyebrow">MEET THE CREW</p>
       <h2 class="section-title">OUR <span>TEAM</span></h2>
       <div class="gold-line"></div>
       <p class="section-subtitle">World-class barbers. Local legends.</p>

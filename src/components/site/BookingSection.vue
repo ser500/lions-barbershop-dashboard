@@ -2,7 +2,9 @@
   <section class="booking-section" id="booking">
     <div class="booking-inner">
       <div class="section-header reveal">
-        <h2 class="section-title">BOOKING OPTIONS</h2>
+        <p class="eyebrow">GET IN THE CHAIR</p>
+        <h2 class="section-title">BOOK YOUR <span>VISIT</span></h2>
+        <div class="gold-line"></div>
       </div>
 
       <div class="booking-options reveal">
@@ -59,7 +61,7 @@ function trackIntent(label, url) { trackBookingIntent(label, url) }
 const bookingOptions = [
   {
     label: 'Vagaro App',
-    desc: 'Ios and Android',
+    desc: 'iOS and Android',
     href: 'https://vagaro.com/lionsloungebarbershop',
     viewBox: '0 0 24 24',
     path: 'M7 17L17 7M17 7H7M17 7V17',
@@ -97,20 +99,21 @@ const hours = [
 <style scoped>
 .booking-section {
   padding: 100px 24px 120px;
+  /* Strong warm amber glow rising from bottom center */
   background:
-    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120, 80, 10, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 75% 50% at 50% 120%, rgba(180, 115, 5, 0.65) 0%, rgba(130, 80, 3, 0.3) 40%, transparent 68%),
     var(--color-black);
   text-align: center;
 }
 .booking-inner { max-width: 1200px; margin: 0 auto; }
 .section-header { margin-bottom: 64px; }
-.section-title {
+.eyebrow {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
+  font-size: 0.75rem;
   letter-spacing: 4px;
-  color: var(--color-white);
+  color: var(--color-gold);
   text-transform: uppercase;
+  margin-bottom: 12px;
 }
 
 /* Cards */
@@ -122,37 +125,42 @@ const hours = [
 }
 .booking-option {
   position: relative;
-  background: rgba(255,255,255,0.03);
+  background: rgba(12, 12, 12, 0.8);
   border-radius: 16px;
-  padding: 40px 24px 36px;
+  padding: 40px 28px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
   transition: background 0.3s, transform 0.3s;
   isolation: isolate;
 }
-/* gradient border: bright top-left → fades bottom-right */
+/* Gradient border: crisp bright on top+left, nearly invisible bottom+right */
 .booking-option::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 16px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.02) 100%);
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.45) 20%,
+    rgba(255, 255, 255, 0.1) 55%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
 .booking-option:hover {
-  background: rgba(255,255,255,0.06);
-  transform: translateY(-4px);
+  background: rgba(22, 22, 22, 0.9);
+  transform: translateY(-5px);
 }
 .opt-icon-box {
   width: 46px;
   height: 46px;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.93);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -160,10 +168,7 @@ const hours = [
   margin-bottom: 24px;
   flex-shrink: 0;
 }
-.opt-svg {
-  width: 22px;
-  height: 22px;
-}
+.opt-svg { width: 22px; height: 22px; }
 .opt-label {
   font-family: var(--font-body);
   font-size: 1.4rem;
@@ -171,10 +176,7 @@ const hours = [
   color: var(--color-white);
   margin-bottom: 8px;
 }
-.opt-desc {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.5);
-}
+.opt-desc { font-size: 0.85rem; color: rgba(255, 255, 255, 0.45); }
 
 /* Hours */
 .hours-row {
@@ -184,14 +186,8 @@ const hours = [
   gap: 6px;
   margin-bottom: 36px;
 }
-.hour-line {
-  font-size: 0.9rem;
-  color: var(--color-white);
-}
-.hour-line strong {
-  font-weight: 700;
-  color: var(--color-white);
-}
+.hour-line { font-size: 0.9rem; color: var(--color-white); }
+.hour-line strong { font-weight: 700; }
 
 /* Social */
 .social-row {
@@ -212,9 +208,7 @@ const hours = [
 .social-btn:hover { background: var(--color-gold-light); transform: scale(1.1); }
 .social-svg { width: 20px; height: 20px; }
 
-@media (max-width: 900px) {
-  .booking-options { grid-template-columns: repeat(2, 1fr); }
-}
+@media (max-width: 900px) { .booking-options { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 540px) {
   .booking-section { padding: 80px 16px 100px; }
   .booking-options { grid-template-columns: 1fr; }
