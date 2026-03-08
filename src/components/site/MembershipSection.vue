@@ -2,7 +2,7 @@
   <section class="membership-section" id="memberships">
     <div class="membership-inner">
       <div class="section-header reveal">
-        <p class="eyebrow">EXCLUSIVE ACCESS</p>
+        <p class="eyebrow">👑 EXCLUSIVE ACCESS</p>
         <h2 class="section-title">LIONS <span>CLUB</span></h2>
         <div class="gold-line"></div>
         <p class="section-subtitle">Join the pride. Unlock premium benefits and savings.</p>

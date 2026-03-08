@@ -2,7 +2,7 @@
   <section class="booking-section" id="booking">
     <div class="booking-inner">
       <div class="section-header reveal">
-        <p class="eyebrow">GET IN THE CHAIR</p>
+        <p class="eyebrow">📞 GET IN THE CHAIR</p>
         <h2 class="section-title">BOOK YOUR <span>VISIT</span></h2>
         <div class="gold-line"></div>
       </div>
@@ -101,7 +101,7 @@ const hours = [
   padding: 100px 24px 120px;
   /* Strong warm amber glow rising from bottom center */
   background:
-    radial-gradient(ellipse 75% 50% at 50% 120%, rgba(180, 115, 5, 0.65) 0%, rgba(130, 80, 3, 0.3) 40%, transparent 68%),
+    radial-gradient(ellipse 90% 55% at 50% 115%, rgba(190, 125, 5, 0.75) 0%, rgba(140, 85, 3, 0.4) 35%, rgba(80, 45, 2, 0.15) 60%, transparent 75%),
     var(--color-black);
   text-align: center;
 }

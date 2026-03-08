@@ -2,7 +2,7 @@
   <section class="faq-section" id="faq">
     <div class="faq-inner">
       <div class="section-header reveal">
-        <p class="eyebrow">GOT QUESTIONS</p>
+        <p class="eyebrow">❓ GOT QUESTIONS</p>
         <h2 class="section-title">FREQUENTLY <span>ASKED</span></h2>
         <div class="gold-line"></div>
       </div>

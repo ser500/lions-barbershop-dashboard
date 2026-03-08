@@ -2,7 +2,7 @@
   <section class="reviews-section" id="reviews">
     <div class="reviews-inner">
       <div class="section-header reveal">
-        <p class="eyebrow">WHAT THEY SAY</p>
+        <p class="eyebrow">⭐ WHAT THEY SAY</p>
         <h2 class="section-title">1000+ <span>REVIEWS</span></h2>
         <div class="gold-line"></div>
         <div class="stars-row">⭐⭐⭐⭐⭐</div>
@@ -57,8 +57,11 @@ const reviews = [
 .stars-row { font-size: 1.5rem; margin-top: 12px; }
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+}
+@media (max-width: 900px) {
+  .reviews-grid { grid-template-columns: 1fr; }
 }
 .review-card {
   background: var(--color-dark-2);
@@ -97,6 +100,5 @@ const reviews = [
 .reviewer-meta { font-size: 0.75rem; color: var(--color-gray); }
 @media (max-width: 640px) {
   .reviews-section { padding: 80px 16px; }
-  .reviews-grid { grid-template-columns: 1fr; }
 }
 </style>

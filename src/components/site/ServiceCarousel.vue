@@ -1,7 +1,7 @@
 <template>
   <section class="services-section" id="services">
     <div class="section-header reveal">
-      <p class="eyebrow">WHAT WE OFFER</p>
+      <p class="eyebrow">✂️ WHAT WE OFFER</p>
       <h2 class="section-title">OUR <span>SERVICES</span></h2>
       <div class="gold-line"></div>
     </div>
@@ -123,14 +123,27 @@ const addOnServices = [
 }
 .carousel-label {
   font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 3px;
-  color: var(--color-gray-light);
+  font-size: 0.72rem;
+  letter-spacing: 4px;
+  color: var(--color-gold);
   text-transform: uppercase;
   margin-bottom: 24px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.carousel-label::before,
+.carousel-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.4));
+}
+.carousel-label::after {
+  background: linear-gradient(to left, transparent, rgba(201,168,76,0.4));
 }
 .service-card {
   background: var(--color-dark-2);
