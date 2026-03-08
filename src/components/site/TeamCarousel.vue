@@ -21,17 +21,19 @@
       >
         <SwiperSlide v-for="(member, i) in team" :key="member.name">
           <div class="team-card" @click="trackBarberView(member.name, i)">
-            <div class="member-avatar">
+            <div class="member-photo-wrap">
               <img v-if="member.photo" :src="member.photo" :alt="member.name" class="member-photo" />
-              <span v-else>{{ member.emoji }}</span>
+              <div v-else class="member-photo-fallback">{{ member.name[0] }}</div>
             </div>
-            <h4 class="member-name">{{ member.name }}</h4>
-            <p class="member-role">{{ member.role }}</p>
-            <p class="member-specialty">{{ member.specialty }}</p>
-            <a href="https://vagaro.com/lionsloungebarbershop" target="_blank" class="btn-outline team-btn"
-              @click.stop="trackIntent(member.name)">
-              Book {{ member.name }}
-            </a>
+            <div class="member-info">
+              <h4 class="member-name">{{ member.name }}</h4>
+              <p class="member-role">{{ member.role }}</p>
+              <p class="member-specialty">{{ member.specialty }}</p>
+              <a href="https://vagaro.com/lionsloungebarbershop" target="_blank" class="btn-outline team-btn"
+                @click.stop="trackIntent(member.name)">
+                Book {{ member.name }}
+              </a>
+            </div>
           </div>
         </SwiperSlide>
       </Swiper>
@@ -83,47 +85,60 @@ const team = [
 }
 .team-card {
   background: var(--color-dark-2);
-  border: 1px solid rgba(201,168,76,0.15);
-  border-radius: 16px;
-  padding: 32px 24px;
-  text-align: center;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  overflow: hidden;
   transition: border-color 0.3s, transform 0.3s;
   cursor: pointer;
-}
-.team-card:hover { border-color: var(--color-gold); transform: translateY(-4px); }
-.member-avatar {
-  font-size: 3rem;
-  margin-bottom: 16px;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: rgba(201,168,76,0.1);
-  border: 2px solid rgba(201,168,76,0.3);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
+  flex-direction: column;
+}
+.team-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); }
+.member-photo-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .member-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: top center;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.team-card:hover .member-photo { transform: scale(1.04); }
+.member-photo-fallback {
+  width: 100%;
+  height: 100%;
+  background: rgba(201,168,76,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-family: var(--font-display);
+  color: var(--color-gold);
+}
+.member-info {
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .member-name {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  letter-spacing: 2px;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-gold);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
-.member-role { font-size: 0.78rem; color: var(--color-gray-light); margin-bottom: 8px; }
-.member-specialty { font-size: 0.75rem; color: var(--color-gray); margin-bottom: 20px; line-height: 1.5; }
-.team-btn { font-size: 0.72rem; padding: 9px 18px; min-height: 44px; }
+.member-role { font-size: 0.78rem; color: var(--color-gray-light); margin-bottom: 10px; }
+.member-specialty { font-size: 0.8rem; color: var(--color-gray); margin-bottom: 20px; line-height: 1.6; flex: 1; }
+.team-btn { font-size: 0.72rem; padding: 10px 18px; min-height: 44px; align-self: flex-start; }
 @media (max-width: 640px) {
   .team-section { padding: 80px 0; }
+  .member-photo-wrap { aspect-ratio: 3 / 4; }
 }
 </style>
