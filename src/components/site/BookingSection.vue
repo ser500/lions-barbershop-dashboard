@@ -13,7 +13,7 @@
           @click="trackIntent(opt.label, opt.href)">
           <div class="opt-icon-box">
             <svg :viewBox="opt.viewBox" fill="none" xmlns="http://www.w3.org/2000/svg" class="opt-svg">
-              <path :d="opt.path" fill="white" />
+              <path :d="opt.path" fill="#0a0a0a" />
             </svg>
           </div>
           <p class="opt-label">{{ opt.label }}</p>
@@ -121,25 +121,38 @@ const hours = [
   margin-bottom: 56px;
 }
 .booking-option {
+  position: relative;
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 16px;
   padding: 40px 24px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
-  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  transition: background 0.3s, transform 0.3s;
+  isolation: isolate;
+}
+/* gradient border: bright top-left → fades bottom-right */
+.booking-option::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.02) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 .booking-option:hover {
-  border-color: rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.06);
   transform: translateY(-4px);
 }
 .opt-icon-box {
-  width: 48px;
-  height: 48px;
-  background: rgba(255,255,255,0.12);
+  width: 46px;
+  height: 46px;
+  background: rgba(255,255,255,0.92);
   border-radius: 10px;
   display: flex;
   align-items: center;
