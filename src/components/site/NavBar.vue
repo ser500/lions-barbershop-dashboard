@@ -1,0 +1,136 @@
+<template>
+  <nav class="navbar" :class="{ scrolled: isScrolled }">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/src/assets/images/logo/logo-white.webp" alt="Lion's Lounge Barbershop" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">HOME</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#services" @click="track('Services', '#services', 'nav')">SERVICES</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#memberships" @click="track('Memberships', '#memberships', 'nav')">MEMBERSHIPS</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#gallery" @click="track('Gallery', '#gallery', 'nav')">GALLERY</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#team" @click="track('Team', '#team', 'nav')">TEAM</a></li>
+      </ul>
+      <button class="hamburger" @click="menuOpen = !menuOpen" aria-label="Menu">
+        <span /><span /><span />
+      </button>
+    </div>
+    <div class="mobile-menu" :class="{ open: menuOpen }">
+      <a href="#services" @click="menuOpen = false">SERVICES</a>
+      <a href="#memberships" @click="menuOpen = false">MEMBERSHIPS</a>
+      <a href="#gallery" @click="menuOpen = false">GALLERY</a>
+      <a href="#team" @click="menuOpen = false">TEAM</a>
+      <a href="https://vagaro.com/lionsloungebarbershop" target="_blank" class="btn-gold"
+        @click="trackIntent('Book Now - Mobile Nav', 'https://vagaro.com/lionsloungebarbershop')">
+        BOOK NOW
+      </a>
+    </div>
+  </nav>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useTracker } from '../../composables/useTracker.js'
+
+const { trackClick, trackBookingIntent } = useTracker()
+const isScrolled = ref(false)
+const menuOpen = ref(false)
+
+function track(label, href, section) { trackClick(label, href, section) }
+function trackIntent(label, url) { trackBookingIntent(label, url) }
+
+function onScroll() { isScrolled.value = window.scrollY > 60 }
+onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
+onUnmounted(() => window.removeEventListener('scroll', onScroll))
+</script>
+
+<style scoped>
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  transition: background 0.3s ease, padding 0.3s ease;
+}
+.navbar.scrolled {
+  background: rgba(10,10,10,0.97);
+  backdrop-filter: blur(10px);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.logo-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.3s;
+}
+.logo-img:hover { opacity: 0.85; }
+.nav-links {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
+}
+.nav-links a {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  color: var(--color-white);
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--color-gold); }
+.nav-sep {
+  color: rgba(255,255,255,0.35);
+  font-size: 0.75rem;
+  user-select: none;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: auto;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-white);
+}
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--color-dark);
+  border-top: 1px solid rgba(201,168,76,0.2);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--color-white);
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+</style>
