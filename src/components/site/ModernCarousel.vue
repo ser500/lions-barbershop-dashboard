@@ -51,7 +51,7 @@ const slides = [
   position: relative;
   z-index: 1;
   margin-top: -160px;
-  padding: 60px 0 100px;
+  padding: 60px 0 16px;
   background: transparent;
   overflow: hidden;
 }
@@ -60,7 +60,7 @@ const slides = [
   text-align: center;
   padding: 0 24px;
   padding-top: 120px;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 
 .carousel-heading {
@@ -93,7 +93,7 @@ const slides = [
 }
 .photo-card:hover .photo-img { transform: scale(1.04); }
 @media (max-width: 640px) {
-  .modern-section { padding: 40px 0 80px; }
+  .modern-section { padding: 40px 0 48px; }
   .section-header { padding-top: 100px; margin-bottom: 32px; }
   .carousel-heading { font-size: 0.95rem; padding: 0 16px; }
   .photo-swiper { padding-left: 16px !important; padding-right: 16px !important; }

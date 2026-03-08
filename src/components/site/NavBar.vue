@@ -14,6 +14,14 @@
         <li><a href="#gallery" @click="track('Gallery', '#gallery', 'nav')">GALLERY</a></li>
         <li class="nav-sep">|</li>
         <li><a href="#team" @click="track('Team', '#team', 'nav')">TEAM</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#about" @click="track('About', '#about', 'nav')">ABOUT</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#reviews" @click="track('Reviews', '#reviews', 'nav')">REVIEWS</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#booking" @click="track('Booking', '#booking', 'nav')">BOOKING</a></li>
+        <li class="nav-sep">|</li>
+        <li><a href="#faq" @click="track('FAQ', '#faq', 'nav')">FAQ</a></li>
       </ul>
       <button class="hamburger" :class="{ open: menuOpen }" @click="menuOpen = !menuOpen" aria-label="Menu">
         <span /><span /><span />
@@ -25,6 +33,10 @@
       <a href="#memberships" @click="menuOpen = false">MEMBERSHIPS</a>
       <a href="#gallery" @click="menuOpen = false">GALLERY</a>
       <a href="#team" @click="menuOpen = false">TEAM</a>
+      <a href="#about" @click="menuOpen = false">ABOUT</a>
+      <a href="#reviews" @click="menuOpen = false">REVIEWS</a>
+      <a href="#booking" @click="menuOpen = false">BOOKING</a>
+      <a href="#faq" @click="menuOpen = false">FAQ</a>
       <a href="https://vagaro.com/lionsloungebarbershop" target="_blank" class="btn-gold mobile-book"
         @click="trackIntent('Book Now - Mobile Nav', 'https://vagaro.com/lionsloungebarbershop')">
         BOOK NOW

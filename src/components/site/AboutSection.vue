@@ -22,7 +22,7 @@
       </div>
       <div class="about-visual reveal">
         <div class="visual-box">
-          <img src="/src/assets/images/backgrounds/about-bg.webp" alt="Lion's Lounge interior" class="about-photo" />
+          <img src="/src/assets/images/gallery/gallery-3.webp" alt="Lion's Lounge interior" class="about-photo" />
         </div>
       </div>
     </div>

@@ -101,7 +101,7 @@ const addOnServices = [
 
 <style scoped>
 .services-section {
-  padding: 100px 0;
+  padding: 72px 0 100px;
   background: var(--color-dark);
 }
 .section-header {
