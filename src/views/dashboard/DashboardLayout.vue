@@ -24,8 +24,20 @@
         <RouterLink to="/dashboard/team" class="nav-item">
           <span>👥</span> Team
         </RouterLink>
+        <RouterLink to="/dashboard/sample" class="nav-item">
+          <span>🎨</span> Theme Sampler
+        </RouterLink>
       </nav>
       <div class="sidebar-footer">
+        <RouterLink
+          to="/dashboard/staff"
+          class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all mx-2 mt-2"
+          style="color:#b8960c;border:1px solid rgba(184,150,12,0.2);background:rgba(184,150,12,0.05)"
+        >
+          <i class="ph ph-scissors text-base"></i>
+          Staff Portal
+          <i class="ph ph-arrow-right ml-auto text-xs"></i>
+        </RouterLink>
         <RouterLink to="/" class="back-link">← View Site</RouterLink>
       </div>
     </aside>
@@ -61,6 +73,7 @@ const titles = {
   '/dashboard/funnel': 'Booking Funnel',
   '/dashboard/services': 'Services Analytics',
   '/dashboard/team': 'Team Performance',
+  '/dashboard/sample': 'Theme Sampler',
 }
 const pageTitle = computed(() => titles[route.path] || 'Dashboard')
 </script>

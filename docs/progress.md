@@ -1,6 +1,6 @@
 # Lions Barbershop Dashboard — Progress
 
-Last updated: 2026-03-08
+Last updated: 2026-03-08 (Phase 4 started)
 
 ---
 
@@ -87,6 +87,57 @@ Last updated: 2026-03-08
 - [ ] Date range picker
 - [ ] Auto-refresh on overview (10s live feed)
 - [ ] Export CSV per view
+
+---
+
+## Phase 3.5 — Staff Portal (existing /dashboard/staff)
+
+### ✅ Done
+- [x] StaffLayout — sidebar (Daily Ops / Management sections), header with New Appt button
+- [x] StaffOverviewView — stats cards, schedule timeline, waiting area, services donut, performance table
+- [x] StaffScheduleView, StaffQueueView, StaffClientsView, StaffRevenueView, StaffInventoryView — scaffolded
+- [x] 8 staff components: StaffSidebar, StaffHeader, StatsCards, ScheduleTimeline, WaitingArea, ServicesDonut, StaffPerformanceTable, NewApptModal
+- [x] `staff.js` store — stats, schedule, waitingArea, servicesBreakdown, staffPerformance
+
+---
+
+## Phase 4 — Multi-Role Business Management Platform
+
+**Theme:** Innovate. Automate. Elevate.
+**Started:** 2026-03-08
+**Full checklist:** [phases/phase-4-rebrand.md](./phases/phase-4-rebrand.md)
+
+### Phase 4.1 — Foundation Stores
+- [ ] `location.js` — 3 locations (Downtown / East Side / North Campus), activeLocationId
+- [ ] `membership.js` — Essential $49 / Premium $89 / VIP $149, MRR stats
+- [ ] `clients.js` — CRM profiles, visit history, preferences, notes
+- [ ] `revenue.js` — daily/weekly/monthly financials by barber + service
+- [ ] `barber.js` — individual barber earnings, schedule, clients, ratings
+- [ ] `liveFeed.js` — seeded real-time ops events for ticker
+- [ ] `quevex.js` — AI chat state, role context, mock responses
+
+### Phase 4.2 — Router + Gateway
+- [ ] `/app` → RoleGateway.vue (5 role cards, tagline "Innovate. Automate. Elevate.")
+- [ ] `/app/super-admin/*` → 8 routes
+- [ ] `/app/admin/*` → 8 routes
+- [ ] `/app/staff/*` → 7 routes (refactored from /dashboard/staff)
+- [ ] `/app/barber/*` → 6 routes
+- [ ] `/app/client/*` → 6 routes
+
+### Phase 4.3 — Shared Components
+- [ ] `LiveFeedTicker.vue` — animated ops ticker (all topbars)
+- [ ] `AIInsightsStrip.vue` — gold-border collapsible insight (all overviews)
+- [ ] `ClientIntelCard.vue` — tier badge, last visit, notes, QueVex upsell
+- [ ] `RevenueForecastWidget.vue` — progress bar vs last month
+- [ ] `QueVexChat.vue` — chat UI, prompt chips, mock responses
+- [ ] `LocationRivalryBoard.vue` — gamified leaderboard with trophies
+
+### Phase 4.4–4.10 — All Panel Views (37 total)
+- [ ] Super Admin: 8 views (overview / locations / analytics / revenue / membership / staff / settings / ai)
+- [ ] Admin: 8 views (overview / schedule / team / clients / revenue / membership / inventory / ai)
+- [ ] Staff: 7 views — fill all placeholders (overview / schedule / queue / clients / revenue / inventory / ai)
+- [ ] Barber: 6 views (overview / schedule / clients / earnings / reviews / ai)
+- [ ] Client: 6 views (dashboard / appointments / history / membership / preferences / ai)
 
 ---
 
