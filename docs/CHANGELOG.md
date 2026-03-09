@@ -5,11 +5,22 @@ Format: `[version] — YYYY-MM-DD — description`
 
 ---
 
-## [Unreleased] — 2026-03-08
+## [Unreleased] — Phase 5 — Full Platform Build
+
+### Planned
+- Supabase backend (schema, auth, RLS, realtime)
+- Stripe payments (online + Billing subscriptions + Terminal POS)
+- Public booking wizard replacing Vagaro
+- Live barber performance data (replaces Google Sheets manual process)
+- Marketing attribution (UTM → Supabase → confirmed appointment)
+- QueVex AI widget integration (replaces mock responses)
+- Meta Ads + Google Ads API integration for ROAS reporting
+
+---
+
+## [0.4.0] — 2026-03-08
 
 ### Phase 4 — Multi-Role Business Management Platform
-
-**Planned / In Progress**
 
 #### Added
 - Role Gateway (`/app`) — full-screen entry point with 5 branded role cards and tagline "Innovate. Automate. Elevate."
@@ -37,6 +48,14 @@ Format: `[version] — YYYY-MM-DD — description`
 - Router updated to add all `/app/*` nested routes
 - `docs/progress.md` — Phase 4 section added
 - `docs/phases/` — `phase-4-rebrand.md` checklist created
+
+#### Visual Redesign Pass (Phase 4.x)
+- Applied app design system to all 39 views and shared components
+- Design tokens: `--app-*`, `.app-card`, `.app-stat`, `.app-badge`, `.app-btn`, `.app-enter` animations
+- Contrast audit: boosted `--app-text-dim` to 72%, `--app-text-muted` to 50%, `--app-border` to `#253050` for visible input/select outlines
+- Global `.app-input`, `.app-select`, `.app-textarea` form element classes
+- Custom dropdown arrow SVG on all select elements with option contrast
+- Nav section labels, stat labels, table headers all upgraded from 30% to 72% opacity
 
 ---
 

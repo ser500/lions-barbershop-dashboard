@@ -24,81 +24,88 @@ const donutOptions = ref({
 
 const atRisk = computed(() => store.subscribers.filter(s => s.status === 'at-risk' || s.status === 'inactive'))
 
-function planBadgeStyle(plan) {
-  if (plan === 'vip') return 'background:rgba(232,232,232,0.1);color:#e8e8e8;border:1px solid rgba(232,232,232,0.3)'
-  if (plan === 'premium') return 'background:rgba(201,168,76,0.15);color:#c9a84c;border:1px solid rgba(201,168,76,0.3)'
-  return 'background:rgba(168,184,200,0.1);color:#a8b8c8;border:1px solid rgba(168,184,200,0.3)'
+function planBadgeClass(plan) {
+  if (plan === 'vip') return 'app-badge vip'
+  if (plan === 'premium') return 'app-badge gold'
+  return 'app-badge blue'
 }
 
-function statusBadgeStyle(status) {
-  if (status === 'active') return 'background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2)'
-  if (status === 'at-risk') return 'background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)'
-  return 'background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.2)'
+function statusBadgeClass(status) {
+  if (status === 'active') return 'app-badge green'
+  if (status === 'at-risk') return 'app-badge amber'
+  return 'app-badge red'
 }
 </script>
 <template>
-  <div class="p-6 font-inter space-y-6">
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;font-family:'Inter',sans-serif">
     <!-- Stats row -->
-    <div class="grid grid-cols-4 gap-4">
-      <div class="rounded-xl p-4" style="background:#111;border:1px solid #1a1a1a">
-        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280;margin-bottom:4px">Total Subscribers</div>
-        <div style="font-size:1.5rem;font-weight:700;color:#ffffff">{{ store.stats.totalSubscribers }}</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+      <div class="app-stat app-enter app-d1" style="padding:16px">
+        <div class="app-stat-label">Total Subscribers</div>
+        <div class="app-stat-value">{{ store.stats.totalSubscribers }}</div>
+        <i class="ph ph-users app-stat-icon"></i>
       </div>
-      <div class="rounded-xl p-4" style="background:#111;border:1px solid #1a1a1a">
-        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280;margin-bottom:4px">MRR</div>
-        <div style="font-size:1.5rem;font-weight:700;color:#b8960c">${{ store.stats.mrr }}</div>
+      <div class="app-stat app-enter app-d2" style="padding:16px">
+        <div class="app-stat-label">MRR</div>
+        <div class="app-stat-value" style="color:var(--app-gold)">${{ store.stats.mrr }}</div>
+        <i class="ph ph-crown-simple app-stat-icon"></i>
       </div>
-      <div class="rounded-xl p-4" style="background:#111;border:1px solid #1a1a1a">
-        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280;margin-bottom:4px">Churn Rate</div>
-        <div style="font-size:1.5rem;font-weight:700;color:#fbbf24">{{ store.stats.churnRate }}%</div>
+      <div class="app-stat app-enter app-d3" style="padding:16px">
+        <div class="app-stat-label">Churn Rate</div>
+        <div class="app-stat-value" style="color:var(--app-amber)">{{ store.stats.churnRate }}%</div>
+        <i class="ph ph-arrow-counter-clockwise app-stat-icon"></i>
       </div>
-      <div class="rounded-xl p-4" style="background:#111;border:1px solid #1a1a1a">
-        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280;margin-bottom:4px">Avg Plan Value</div>
-        <div style="font-size:1.5rem;font-weight:700;color:#ffffff">${{ store.stats.avgPlanValue }}</div>
+      <div class="app-stat app-enter app-d4" style="padding:16px">
+        <div class="app-stat-label">Avg Plan Value</div>
+        <div class="app-stat-value">${{ store.stats.avgPlanValue }}</div>
+        <i class="ph ph-trend-up app-stat-icon"></i>
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-6">
+    <!-- 2-col row: donut + subscribers table -->
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px">
       <!-- Donut chart -->
-      <div class="rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-        <div class="mb-3" style="font-size:0.9rem;font-weight:700;color:#e5e7eb">Plan Distribution</div>
+      <div class="app-card app-enter app-d2" style="padding:20px">
+        <div class="app-section-label" style="margin-bottom:16px">Plan Distribution</div>
         <VueApexCharts type="donut" height="220" :series="donutSeries" :options="donutOptions" />
-        <div class="mt-3 space-y-1">
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:4px">
           <div class="flex justify-between" style="font-size:0.78rem">
-            <span style="color:#a8b8c8">Essential</span><span style="color:#9ca3af">{{ planCounts.essential }}</span>
+            <span style="color:#a8b8c8">Essential</span><span style="color:var(--app-text-muted)">{{ planCounts.essential }}</span>
           </div>
           <div class="flex justify-between" style="font-size:0.78rem">
-            <span style="color:#c9a84c">Premium</span><span style="color:#9ca3af">{{ planCounts.premium }}</span>
+            <span style="color:var(--app-gold)">Premium</span><span style="color:var(--app-text-muted)">{{ planCounts.premium }}</span>
           </div>
           <div class="flex justify-between" style="font-size:0.78rem">
-            <span style="color:#e8e8e8">VIP</span><span style="color:#9ca3af">{{ planCounts.vip }}</span>
+            <span style="color:var(--app-text)">VIP</span><span style="color:var(--app-text-muted)">{{ planCounts.vip }}</span>
           </div>
         </div>
       </div>
 
       <!-- Subscribers table -->
-      <div class="col-span-2 rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-        <div class="mb-4" style="font-size:0.9rem;font-weight:700;color:#e5e7eb">All Subscribers</div>
-        <table class="w-full" style="border-collapse:collapse">
+      <div class="app-card app-enter app-d3" style="padding:0;overflow:hidden">
+        <div style="padding:20px 20px 0">
+          <div class="app-section-label" style="margin-bottom:16px">All Subscribers</div>
+        </div>
+        <table class="app-table w-full">
           <thead>
-            <tr style="border-bottom:1px solid #1a1a1a">
-              <th class="text-left pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Name</th>
-              <th class="text-center pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Plan</th>
-              <th class="text-center pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Location</th>
-              <th class="text-center pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Billing</th>
-              <th class="text-center pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Status</th>
+            <tr>
+              <th class="text-left">Name</th>
+              <th class="text-center">Plan</th>
+              <th class="text-center">Location</th>
+              <th class="text-center">Billing</th>
+              <th class="text-center">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="sub in store.subscribers" :key="sub.id" style="border-bottom:1px solid #0f0f0f">
-              <td class="py-2.5" style="font-size:0.83rem;font-weight:600;color:#e5e7eb">{{ sub.name }}</td>
-              <td class="py-2.5 text-center">
-                <span class="text-xs px-2 py-0.5 rounded-full font-medium" :style="planBadgeStyle(sub.plan)">{{ sub.plan.charAt(0).toUpperCase() + sub.plan.slice(1) }}</span>
+            <tr v-for="sub in store.subscribers" :key="sub.id">
+              <td style="font-size:0.83rem;font-weight:600;color:var(--app-text)">{{ sub.name }}</td>
+              <td class="text-center">
+                <span :class="planBadgeClass(sub.plan)">{{ sub.plan.charAt(0).toUpperCase() + sub.plan.slice(1) }}</span>
               </td>
-              <td class="py-2.5 text-center" style="font-size:0.78rem;color:#9ca3af">{{ sub.locationId === 'loc-1' ? 'Downtown' : 'East Side' }}</td>
-              <td class="py-2.5 text-center" style="font-size:0.78rem;color:#9ca3af">{{ sub.billingDate }}</td>
-              <td class="py-2.5 text-center">
-                <span class="text-xs px-2 py-0.5 rounded-full font-medium" :style="statusBadgeStyle(sub.status)">{{ sub.status }}</span>
+              <td class="text-center" style="font-size:0.78rem;color:var(--app-text-muted)">{{ sub.locationId === 'loc-1' ? 'Downtown' : 'East Side' }}</td>
+              <td class="text-center" style="font-size:0.78rem;color:var(--app-text-muted)">{{ sub.billingDate }}</td>
+              <td class="text-center">
+                <span :class="statusBadgeClass(sub.status)">{{ sub.status }}</span>
               </td>
             </tr>
           </tbody>
@@ -107,20 +114,29 @@ function statusBadgeStyle(status) {
     </div>
 
     <!-- At-risk section -->
-    <div v-if="atRisk.length" class="rounded-xl p-5" style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15)">
-      <div class="flex items-center gap-2 mb-4">
-        <i class="ph ph-warning" style="color:#ef4444;font-size:1rem"></i>
-        <div style="font-size:0.9rem;font-weight:700;color:#ef4444">At-Risk Subscribers</div>
+    <div
+      v-if="atRisk.length"
+      class="app-card app-enter app-d5"
+      style="padding:20px;border:1px solid rgba(212,108,108,0.28);background:rgba(212,108,108,0.03)"
+    >
+      <div class="flex items-center gap-2" style="margin-bottom:16px">
+        <i class="ph ph-warning" style="color:var(--app-red);font-size:1rem"></i>
+        <div style="font-size:0.9rem;font-weight:700;color:var(--app-red)">At-Risk Subscribers</div>
       </div>
-      <div class="space-y-2">
-        <div v-for="sub in atRisk" :key="sub.id" class="flex items-center justify-between p-3 rounded-lg" style="background:#0f0f0f;border:1px solid #1e1e1e">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div
+          v-for="sub in atRisk"
+          :key="sub.id"
+          class="flex items-center justify-between"
+          style="padding:12px;border-radius:8px;background:var(--app-surface-2);border:1px solid var(--app-border-dim)"
+        >
           <div class="flex items-center gap-3">
-            <span style="font-size:0.83rem;font-weight:600;color:#e5e7eb">{{ sub.name }}</span>
-            <span class="text-xs px-2 py-0.5 rounded-full font-medium" :style="planBadgeStyle(sub.plan)">{{ sub.plan }}</span>
+            <span style="font-size:0.83rem;font-weight:600;color:var(--app-text)">{{ sub.name }}</span>
+            <span :class="planBadgeClass(sub.plan)">{{ sub.plan }}</span>
           </div>
           <div class="flex items-center gap-3">
-            <span style="font-size:0.78rem;color:#6b7280">Billing: {{ sub.billingDate }}</span>
-            <span class="text-xs px-2 py-0.5 rounded-full font-medium" :style="statusBadgeStyle(sub.status)">{{ sub.status }}</span>
+            <span style="font-size:0.78rem;color:var(--app-text-muted)">Billing: {{ sub.billingDate }}</span>
+            <span :class="statusBadgeClass(sub.status)">{{ sub.status }}</span>
           </div>
         </div>
       </div>

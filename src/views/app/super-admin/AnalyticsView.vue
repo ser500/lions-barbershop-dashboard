@@ -72,33 +72,48 @@ const servicesOptions = ref({
   grid: { borderColor: '#1a1a1a', strokeDashArray: 3 },
   tooltip: { theme: 'dark' },
 })
+
+const summaryStats = [
+  { label: 'Total Revenue YTD', value: '$182,400', icon: 'ph-currency-dollar' },
+  { label: 'Total Appointments', value: '1,840',   icon: 'ph-calendar-check' },
+  { label: 'Client Retention',   value: '84%',     icon: 'ph-arrow-counter-clockwise' },
+]
 </script>
 <template>
-  <div class="p-6 font-inter space-y-6">
-    <!-- Revenue trend -->
-    <div class="rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-      <div class="mb-4">
-        <div style="font-size:0.9rem;font-weight:700;color:#e5e7eb">Revenue Trend — 12 Months</div>
-        <div style="font-size:0.75rem;color:#6b7280;margin-top:2px">By location</div>
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;font-family:'Inter',sans-serif">
+    <!-- Summary stats -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div
+        v-for="(s, i) in summaryStats"
+        :key="s.label"
+        class="app-stat app-enter"
+        :class="`app-d${i + 1}`"
+        style="padding:16px"
+      >
+        <div class="app-stat-label">{{ s.label }}</div>
+        <div class="app-stat-value">{{ s.value }}</div>
+        <i :class="`ph ${s.icon} app-stat-icon`"></i>
       </div>
+    </div>
+
+    <!-- Revenue trend -->
+    <div class="app-card app-enter app-d2" style="padding:20px">
+      <div class="app-section-label" style="margin-bottom:4px">Revenue Trend — 12 Months</div>
+      <div style="font-size:0.75rem;color:var(--app-text-muted);margin-bottom:16px">By location</div>
       <VueApexCharts type="line" height="240" :series="trendSeries" :options="trendOptions" />
     </div>
 
     <!-- Acquisition vs retention -->
-    <div class="rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-      <div class="mb-4">
-        <div style="font-size:0.9rem;font-weight:700;color:#e5e7eb">Client Acquisition vs Retention</div>
-        <div style="font-size:0.75rem;color:#6b7280;margin-top:2px">New vs returning clients (%) — 6 months</div>
-      </div>
+    <div class="app-card app-enter app-d3" style="padding:20px">
+      <div class="app-section-label" style="margin-bottom:4px">Client Acquisition vs Retention</div>
+      <div style="font-size:0.75rem;color:var(--app-text-muted);margin-bottom:16px">New vs returning clients (%) — 6 months</div>
       <VueApexCharts type="bar" height="220" :series="acquisitionSeries" :options="acquisitionOptions" />
     </div>
 
     <!-- Top services -->
-    <div class="rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-      <div class="mb-4">
-        <div style="font-size:0.9rem;font-weight:700;color:#e5e7eb">Top 5 Services by Revenue</div>
-        <div style="font-size:0.75rem;color:#6b7280;margin-top:2px">Month-to-date</div>
-      </div>
+    <div class="app-card app-enter app-d4" style="padding:20px">
+      <div class="app-section-label" style="margin-bottom:4px">Top 5 Services by Revenue</div>
+      <div style="font-size:0.75rem;color:var(--app-text-muted);margin-bottom:16px">Month-to-date</div>
       <VueApexCharts type="bar" height="220" :series="servicesSeries" :options="servicesOptions" />
     </div>
   </div>

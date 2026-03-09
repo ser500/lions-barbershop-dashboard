@@ -14,37 +14,44 @@ const ranked = computed(() => {
     })
 })
 
-const trophies = ['🥇', '🥈', '🥉']
+function rankColor(rank) {
+  if (rank === 1) return 'var(--app-gold)'
+  if (rank === 2) return 'rgba(192,192,192,0.9)'
+  return 'rgba(180,120,60,0.9)'
+}
 </script>
 <template>
-  <div class="font-inter" style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:16px">
+  <div class="app-card app-enter font-inter" style="padding:20px">
     <div class="flex items-center justify-between mb-4">
       <div>
-        <div style="font-size:0.85rem;font-weight:700;color:#e5e7eb">Location Rankings</div>
-        <div style="font-size:0.72rem;color:#6b7280;margin-top:1px">By revenue this month</div>
+        <div class="app-section-label">Location Rivalry</div>
+        <div style="font-size:0.83rem;font-weight:600;color:var(--app-text-dim);margin-top:1px">By revenue this month</div>
       </div>
+      <i class="ph ph-trophy" style="font-size:1.2rem;color:var(--app-gold)"></i>
     </div>
 
     <div class="space-y-3">
-      <div v-for="loc in ranked" :key="loc.id" class="flex items-center justify-between p-3 rounded-lg" style="background:#0f0f0f;border:1px solid #1e1e1e">
-        <div class="flex items-center gap-3">
-          <span style="font-size:1.2rem">{{ trophies[loc.rank - 1] || loc.rank }}</span>
-          <div>
-            <div style="font-size:0.83rem;font-weight:600;color:#e5e7eb">{{ loc.name }}</div>
-            <div style="font-size:0.72rem;color:#6b7280">{{ loc.appts }} appts · {{ loc.barberCount }} barbers</div>
+      <div v-for="loc in ranked" :key="loc.id" :class="loc.rank === 1 ? 'app-card gold' : 'app-card'" style="padding:12px 14px">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <i class="ph ph-trophy" :style="{ color: rankColor(loc.rank), fontSize: '1.1rem' }"></i>
+            <div>
+              <div style="font-size:0.83rem;font-weight:600;color:var(--app-text)">{{ loc.name }}</div>
+              <div style="font-size:0.72rem;color:var(--app-text-muted)">{{ loc.appts }} appts · {{ loc.barberCount }} barbers</div>
+            </div>
           </div>
-        </div>
-        <div class="text-right">
-          <div style="font-size:0.9rem;font-weight:700;color:#b8960c">${{ loc.revenue.toLocaleString() }}</div>
-          <div style="font-size:0.68rem;color:#22c55e">MTD</div>
+          <div class="text-right">
+            <div style="font-size:0.9rem;font-weight:700;color:var(--app-gold)">${{ loc.revenue.toLocaleString() }}</div>
+            <div style="font-size:0.68rem;color:var(--app-green)">MTD</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="mt-3 px-3 py-2 rounded-lg" style="background:rgba(184,150,12,0.05);border:1px solid rgba(184,150,12,0.15)">
-      <div style="font-size:0.75rem;color:#b8960c;font-style:italic">
-        <i class="ph ph-trend-up mr-1"></i>East Side closes gap +18% this week
-      </div>
+    <div class="mt-3">
+      <p style="font-size:0.78rem;color:var(--app-text-dim);font-style:italic">
+        <i class="ph ph-trend-up mr-1" style="color:var(--app-gold)"></i>East Side closes gap +18% this week
+      </p>
     </div>
   </div>
 </template>

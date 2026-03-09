@@ -20,87 +20,87 @@ const comparisonData = [
 const sortKey = ref('revMtd')
 </script>
 <template>
-  <div class="p-6 font-inter">
-    <div class="flex items-center justify-between mb-6">
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;font-family:'Inter',sans-serif">
+    <!-- Header row -->
+    <div class="flex items-center justify-between">
       <div>
-        <div style="font-size:1.1rem;font-weight:700;color:#e5e7eb">Locations</div>
-        <div style="font-size:0.78rem;color:#6b7280;margin-top:2px">Manage all shop locations</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--app-text)">Locations</div>
+        <div style="font-size:0.78rem;color:var(--app-text-muted);margin-top:2px">Manage all shop locations</div>
       </div>
-      <button
-        @click="showAddModal = true"
-        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-black"
-        style="background:linear-gradient(135deg,#b8960c,#8a7009)"
-      >
-        <i class="ph ph-plus text-sm"></i>
+      <button class="app-btn primary" @click="showAddModal = true">
+        <i class="ph ph-plus"></i>
         Add Location
       </button>
     </div>
 
     <!-- Location cards -->
-    <div class="grid grid-cols-3 gap-5 mb-8">
-      <div v-for="loc in locationStore.locations" :key="loc.id" class="rounded-xl p-5" :style="loc.status === 'coming-soon' ? 'background:#0d0d0d;border:1px solid #1a1a1a;opacity:0.6' : 'background:#111;border:1px solid #1a1a1a'">
-        <div class="flex items-center justify-between mb-3">
-          <div style="font-size:1rem;font-weight:700;color:#e5e7eb">{{ loc.name }}</div>
-          <span
-            class="text-xs px-2 py-0.5 rounded-full font-medium"
-            :style="loc.status === 'open'
-              ? 'background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2)'
-              : 'background:#1a1a1a;color:#6b7280;border:1px solid #2a2a2a'"
-          >{{ loc.status === 'coming-soon' ? 'Coming Soon' : 'Open' }}</span>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div
+        v-for="(loc, i) in locationStore.locations"
+        :key="loc.id"
+        class="app-card lift app-enter"
+        :class="`app-d${i + 1}`"
+        style="padding:20px"
+        :style="loc.status === 'coming-soon' ? 'opacity:0.6' : ''"
+      >
+        <div class="flex items-center justify-between" style="margin-bottom:12px">
+          <div style="font-size:1rem;font-weight:700;color:var(--app-text)">{{ loc.name }}</div>
+          <span v-if="loc.status === 'open'" class="app-badge green">Open</span>
+          <span v-else class="app-badge amber">Coming Soon</span>
         </div>
-        <div style="font-size:0.8rem;color:#9ca3af;margin-bottom:3px">{{ loc.city }}</div>
+        <div style="font-size:0.78rem;color:var(--app-text-dim);margin-bottom:4px">{{ loc.city }}</div>
 
         <template v-if="loc.status !== 'coming-soon'">
-          <div class="grid grid-cols-2 gap-3 mt-4 mb-4">
-            <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;padding:10px">
-              <div style="font-size:0.7rem;color:#6b7280;margin-bottom:2px">Manager</div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5e7eb">{{ loc.managerName }}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;margin-bottom:16px">
+            <div style="background:var(--app-surface-2);border:1px solid var(--app-border-dim);border-radius:8px;padding:10px">
+              <div style="font-size:0.7rem;color:var(--app-text-muted);margin-bottom:2px">Revenue MTD</div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--app-gold)">${{ loc.revenue.toLocaleString() }}</div>
             </div>
-            <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;padding:10px">
-              <div style="font-size:0.7rem;color:#6b7280;margin-bottom:2px">Barbers</div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5e7eb">{{ loc.barberCount }}</div>
+            <div style="background:var(--app-surface-2);border:1px solid var(--app-border-dim);border-radius:8px;padding:10px">
+              <div style="font-size:0.7rem;color:var(--app-text-muted);margin-bottom:2px">Appts MTD</div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--app-text)">{{ loc.appts }}</div>
             </div>
-            <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;padding:10px">
-              <div style="font-size:0.7rem;color:#6b7280;margin-bottom:2px">Revenue MTD</div>
-              <div style="font-size:0.82rem;font-weight:600;color:#b8960c">${{ loc.revenue.toLocaleString() }}</div>
+            <div style="background:var(--app-surface-2);border:1px solid var(--app-border-dim);border-radius:8px;padding:10px">
+              <div style="font-size:0.7rem;color:var(--app-text-muted);margin-bottom:2px">Barbers</div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--app-text)">{{ loc.barberCount }}</div>
             </div>
-            <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;padding:10px">
-              <div style="font-size:0.7rem;color:#6b7280;margin-bottom:2px">Appts MTD</div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5e7eb">{{ loc.appts }}</div>
+            <div style="background:var(--app-surface-2);border:1px solid var(--app-border-dim);border-radius:8px;padding:10px">
+              <div style="font-size:0.7rem;color:var(--app-text-muted);margin-bottom:2px">Manager</div>
+              <div style="font-size:0.78rem;font-weight:600;color:var(--app-text-dim)">{{ loc.managerName }}</div>
             </div>
           </div>
-          <button class="w-full py-2 rounded-lg text-xs font-semibold transition-all" style="background:transparent;border:1px solid rgba(184,150,12,0.3);color:#b8960c">
-            Manage Location
-          </button>
+          <button class="app-btn ghost" style="width:100%;justify-content:center">Manage Location</button>
         </template>
         <template v-else>
-          <div class="mt-6 text-center" style="font-size:0.78rem;color:#3f3f46">Opening Soon</div>
+          <div style="margin-top:24px;text-align:center;font-size:0.78rem;color:var(--app-text-muted)">Opening Soon</div>
         </template>
       </div>
     </div>
 
     <!-- Comparison table -->
-    <div class="rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-      <div class="mb-4" style="font-size:0.9rem;font-weight:700;color:#e5e7eb">Location Comparison</div>
-      <table class="w-full" style="border-collapse:collapse">
+    <div class="app-card app-enter" style="padding:0;overflow:hidden">
+      <div style="padding:20px 20px 0">
+        <div class="app-section-label" style="margin-bottom:16px">Location Comparison</div>
+      </div>
+      <table class="app-table w-full">
         <thead>
-          <tr style="border-bottom:1px solid #1a1a1a">
-            <th class="text-left pb-3 cursor-pointer" @click="sortKey = 'name'" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Location</th>
-            <th class="text-right pb-3 cursor-pointer" @click="sortKey = 'revMtd'" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Revenue MTD</th>
-            <th class="text-right pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">vs Last</th>
-            <th class="text-right pb-3 cursor-pointer" @click="sortKey = 'appts'" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Appts</th>
-            <th class="text-right pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">New Clients</th>
-            <th class="text-right pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Subscribers</th>
+          <tr>
+            <th class="text-left cursor-pointer" @click="sortKey = 'name'">Location</th>
+            <th class="text-right cursor-pointer" @click="sortKey = 'revMtd'">Revenue MTD</th>
+            <th class="text-right">vs Last</th>
+            <th class="text-right cursor-pointer" @click="sortKey = 'appts'">Appts</th>
+            <th class="text-right">New Clients</th>
+            <th class="text-right">Subscribers</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="row in comparisonData" :key="row.name" style="border-bottom:1px solid #0f0f0f">
-            <td class="py-3" style="font-size:0.83rem;font-weight:600;color:#e5e7eb">{{ row.name }}</td>
-            <td class="py-3 text-right" style="font-size:0.83rem;color:#b8960c;font-weight:600">${{ row.revMtd.toLocaleString() }}</td>
-            <td class="py-3 text-right" style="font-size:0.83rem;color:#22c55e">{{ row.vsLast }}</td>
-            <td class="py-3 text-right" style="font-size:0.83rem;color:#9ca3af">{{ row.appts }}</td>
-            <td class="py-3 text-right" style="font-size:0.83rem;color:#9ca3af">{{ row.newClients }}</td>
-            <td class="py-3 text-right" style="font-size:0.83rem;color:#9ca3af">{{ row.subscribers }}</td>
+          <tr v-for="row in comparisonData" :key="row.name">
+            <td style="font-size:0.83rem;font-weight:600;color:var(--app-text)">{{ row.name }}</td>
+            <td class="text-right" style="font-size:0.83rem;color:var(--app-gold);font-weight:600">${{ row.revMtd.toLocaleString() }}</td>
+            <td class="text-right" style="font-size:0.83rem;color:var(--app-green)">{{ row.vsLast }}</td>
+            <td class="text-right" style="font-size:0.83rem;color:var(--app-text-muted)">{{ row.appts }}</td>
+            <td class="text-right" style="font-size:0.83rem;color:var(--app-text-muted)">{{ row.newClients }}</td>
+            <td class="text-right" style="font-size:0.83rem;color:var(--app-text-muted)">{{ row.subscribers }}</td>
           </tr>
         </tbody>
       </table>
@@ -108,28 +108,28 @@ const sortKey = ref('revMtd')
 
     <!-- Add Location Modal -->
     <div v-if="showAddModal" class="fixed inset-0 flex items-center justify-center z-50" style="background:rgba(0,0,0,0.7)">
-      <div class="rounded-xl p-6 w-full max-w-md" style="background:#111;border:1px solid #2a2a2a">
-        <div class="flex items-center justify-between mb-5">
-          <div style="font-size:1rem;font-weight:700;color:#e5e7eb">Add New Location</div>
-          <button @click="showAddModal = false" style="color:#6b7280;background:transparent;border:none;font-size:1.2rem;cursor:pointer">×</button>
+      <div style="background:var(--app-surface-2);border:1px solid var(--app-border);border-radius:12px;padding:28px;width:100%;max-width:420px">
+        <div class="flex items-center justify-between" style="margin-bottom:20px">
+          <div style="font-size:1rem;font-weight:700;color:var(--app-text)">Add New Location</div>
+          <button @click="showAddModal = false" style="color:var(--app-text-muted);background:transparent;border:none;font-size:1.2rem;cursor:pointer">×</button>
         </div>
-        <div class="space-y-4">
+        <div style="display:flex;flex-direction:column;gap:16px">
           <div>
-            <label style="font-size:0.75rem;color:#6b7280;display:block;margin-bottom:4px">Location Name</label>
-            <input v-model="newLoc.name" type="text" placeholder="e.g. North Campus" style="width:100%;background:#0f0f0f;border:1px solid #2a2a2a;color:#e5e7eb;font-size:0.85rem;padding:10px 12px;border-radius:8px;outline:none;font-family:'Inter',sans-serif" />
+            <label style="font-size:0.78rem;font-weight:600;color:var(--app-text-dim);margin-bottom:6px;display:block">Location Name</label>
+            <input v-model="newLoc.name" type="text" placeholder="e.g. North Campus" style="width:100%;background:var(--app-surface-2);border:1px solid var(--app-border);border-radius:8px;padding:10px 14px;color:var(--app-text);font-size:0.875rem;outline:none;font-family:'Inter',sans-serif;box-sizing:border-box" />
           </div>
           <div>
-            <label style="font-size:0.75rem;color:#6b7280;display:block;margin-bottom:4px">City</label>
-            <input v-model="newLoc.city" type="text" placeholder="e.g. Austin" style="width:100%;background:#0f0f0f;border:1px solid #2a2a2a;color:#e5e7eb;font-size:0.85rem;padding:10px 12px;border-radius:8px;outline:none;font-family:'Inter',sans-serif" />
+            <label style="font-size:0.78rem;font-weight:600;color:var(--app-text-dim);margin-bottom:6px;display:block">City</label>
+            <input v-model="newLoc.city" type="text" placeholder="e.g. Austin" style="width:100%;background:var(--app-surface-2);border:1px solid var(--app-border);border-radius:8px;padding:10px 14px;color:var(--app-text);font-size:0.875rem;outline:none;font-family:'Inter',sans-serif;box-sizing:border-box" />
           </div>
           <div>
-            <label style="font-size:0.75rem;color:#6b7280;display:block;margin-bottom:4px">Manager</label>
-            <input v-model="newLoc.manager" type="text" placeholder="Manager name" style="width:100%;background:#0f0f0f;border:1px solid #2a2a2a;color:#e5e7eb;font-size:0.85rem;padding:10px 12px;border-radius:8px;outline:none;font-family:'Inter',sans-serif" />
+            <label style="font-size:0.78rem;font-weight:600;color:var(--app-text-dim);margin-bottom:6px;display:block">Manager</label>
+            <input v-model="newLoc.manager" type="text" placeholder="Manager name" style="width:100%;background:var(--app-surface-2);border:1px solid var(--app-border);border-radius:8px;padding:10px 14px;color:var(--app-text);font-size:0.875rem;outline:none;font-family:'Inter',sans-serif;box-sizing:border-box" />
           </div>
         </div>
-        <div class="flex gap-3 mt-6">
-          <button @click="showAddModal = false" class="flex-1 py-2 rounded-lg text-sm" style="background:transparent;border:1px solid #2a2a2a;color:#9ca3af;cursor:pointer">Cancel</button>
-          <button @click="submitAdd" class="flex-1 py-2 rounded-lg text-sm font-semibold text-black" style="background:linear-gradient(135deg,#b8960c,#8a7009);border:none;cursor:pointer">Add Location</button>
+        <div class="flex gap-3" style="margin-top:24px">
+          <button @click="showAddModal = false" class="app-btn ghost" style="flex:1;justify-content:center">Cancel</button>
+          <button @click="submitAdd" class="app-btn primary" style="flex:1;justify-content:center">Add Location</button>
         </div>
       </div>
     </div>

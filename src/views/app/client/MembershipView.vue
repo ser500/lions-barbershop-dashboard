@@ -5,60 +5,189 @@ const store = useMembershipStore()
 
 const myPlan = store.plans.find(p => p.id === 'vip')
 const perks = ['Unlimited cuts', 'Free monthly product', 'Concierge booking', 'Dedicated barber']
+
+function planBadgeClass(id) {
+  if (id === 'essential') return 'app-badge blue'
+  if (id === 'premium') return 'app-badge gold'
+  return 'app-badge vip'
+}
 </script>
 <template>
-  <div class="p-6 font-inter space-y-6">
-    <!-- VIP plan card -->
-    <div class="rounded-xl p-6" style="background:linear-gradient(135deg,rgba(232,232,232,0.06),rgba(232,232,232,0.02));border:1px solid rgba(232,232,232,0.2)">
-      <div class="flex items-start justify-between mb-4">
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;font-family:'Inter',sans-serif">
+
+    <!-- Current plan hero -->
+    <div class="app-card gold app-enter" style="padding:28px">
+      <div class="plan-hero-row">
         <div>
-          <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:6px">Your Plan</div>
-          <div style="font-size:1.8rem;font-weight:700;color:#e8e8e8;margin-bottom:2px">VIP</div>
-          <div style="font-size:0.85rem;color:#9ca3af">$149 / month · Member since Jan 2024</div>
+          <div class="app-section-label" style="margin-bottom:8px">Your Plan</div>
+          <div class="plan-name">VIP</div>
+          <div class="plan-sub">Member since Jan 2024</div>
         </div>
-        <div class="text-right">
-          <div style="font-size:0.72rem;background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2);padding:4px 12px;border-radius:20px;font-weight:600;margin-bottom:8px">Active</div>
-          <div style="font-size:0.72rem;color:#6b7280">Next billing: Mar 15</div>
+        <div class="plan-hero-right">
+          <span class="app-badge green" style="margin-bottom:8px">
+            <span class="status-dot"></span>
+            Active
+          </span>
+          <div class="plan-price">$149<span class="plan-price-sub">/mo</span></div>
+          <div class="plan-billing">Next billing: Mar 15</div>
         </div>
       </div>
+
+      <hr class="app-divider-gold" style="margin:20px 0 16px" />
 
       <!-- Perks -->
-      <div class="space-y-2">
-        <div v-for="perk in perks" :key="perk" class="flex items-center gap-2">
-          <i class="ph ph-check-circle" style="color:#22c55e;font-size:0.9rem;flex-shrink:0"></i>
-          <span style="font-size:0.83rem;color:#d1d5db">{{ perk }}</span>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div v-for="perk in perks" :key="perk" class="perk-row">
+          <i class="ph ph-check-circle" style="color:var(--app-green);font-size:0.95rem;flex-shrink:0"></i>
+          <span style="font-size:0.83rem;color:var(--app-text)">{{ perk }}</span>
         </div>
       </div>
     </div>
 
-    <!-- Refer a friend -->
-    <div class="rounded-xl p-5" style="background:rgba(184,150,12,0.05);border:1px solid rgba(184,150,12,0.2)">
-      <div class="flex items-center gap-3 mb-3">
-        <i class="ph ph-gift" style="color:#b8960c;font-size:1.1rem"></i>
-        <div style="font-size:0.9rem;font-weight:700;color:#e5e7eb">Refer a Friend</div>
-      </div>
-      <div style="font-size:0.83rem;color:#9ca3af;margin-bottom:12px">Refer a friend and earn 1 free cut per referral. No limits.</div>
-      <div class="flex gap-2">
-        <div style="flex:1;background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#b8960c;font-family:'Inter',sans-serif">lions-mj-ref-48</div>
-        <button style="background:linear-gradient(135deg,#b8960c,#8a7009);color:#000;border:none;padding:10px 16px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer">Copy Link</button>
+    <!-- All Plans -->
+    <div class="app-section-label" style="margin-bottom:-4px">All Plans</div>
+    <div class="plans-grid">
+      <div
+        v-for="(plan, i) in store.plans"
+        :key="plan.id"
+        class="app-card app-enter"
+        :class="`app-d${i + 1}`"
+        :style="plan.id === 'vip' ? 'padding:20px;border-color:rgba(201,168,76,0.4)' : 'padding:20px'"
+      >
+        <div class="plan-card-header">
+          <span :class="planBadgeClass(plan.id)">{{ plan.label }}</span>
+          <span v-if="plan.id === 'vip'" class="app-badge vip" style="font-size:0.68rem">Your Plan</span>
+        </div>
+        <div class="plan-card-price">
+          ${{ plan.price }}<span class="plan-mo">/mo</span>
+        </div>
+        <div class="plan-card-perks">{{ plan.perks.join(' · ') }}</div>
       </div>
     </div>
 
-    <!-- Plan options (non-VIP would see upgrade CTA) -->
-    <div class="rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-      <div class="mb-4" style="font-size:0.9rem;font-weight:700;color:#e5e7eb">All Plans</div>
-      <div class="space-y-3">
-        <div v-for="plan in store.plans" :key="plan.id" class="p-4 rounded-lg" :style="plan.id === 'vip' ? 'background:rgba(232,232,232,0.05);border:1px solid rgba(232,232,232,0.2)' : 'background:#0f0f0f;border:1px solid #1e1e1e'">
-          <div class="flex items-center justify-between mb-2">
-            <span style="font-size:0.85rem;font-weight:700;" :style="{ color: plan.color }">{{ plan.label }}</span>
-            <div class="flex items-center gap-2">
-              <span style="font-size:0.95rem;font-weight:700;color:#e5e7eb">${{ plan.price }}<span style="font-size:0.72rem;color:#6b7280">/mo</span></span>
-              <span v-if="plan.id === 'vip'" style="font-size:0.68rem;background:rgba(232,232,232,0.1);color:#e8e8e8;border:1px solid rgba(232,232,232,0.3);padding:2px 8px;border-radius:20px;font-weight:600">Your Plan</span>
-            </div>
-          </div>
-          <div style="font-size:0.75rem;color:#6b7280">{{ plan.perks.join(' · ') }}</div>
-        </div>
+    <!-- Referral -->
+    <div class="app-card app-enter app-d4" style="padding:20px">
+      <div class="referral-header">
+        <i class="ph ph-gift" style="color:var(--app-gold);font-size:1.1rem"></i>
+        <div style="font-size:0.95rem;font-weight:700;color:var(--app-text)">Refer a Friend</div>
+      </div>
+      <div style="font-size:0.83rem;color:var(--app-text-dim);margin-bottom:14px">
+        Refer a friend and earn 1 free cut per referral. No limits.
+      </div>
+      <div class="referral-box">
+        <div class="referral-code">lions-mj-ref-48</div>
+        <button class="app-btn primary" style="font-size:0.82rem;padding:8px 16px">Copy Link</button>
       </div>
     </div>
+
   </div>
 </template>
+
+<style scoped>
+/* ── Hero card ─────────────────────────────── */
+.plan-hero-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--app-text);
+  margin-bottom: 4px;
+}
+.plan-sub {
+  font-size: 0.8rem;
+  color: var(--app-text-dim);
+}
+.plan-hero-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.plan-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--app-gold);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.plan-price-sub {
+  font-size: 0.9rem;
+  color: var(--app-text-dim);
+  font-weight: 400;
+}
+.plan-billing {
+  font-size: 0.8rem;
+  color: var(--app-text-dim);
+}
+.status-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--app-green);
+  margin-right: 3px;
+}
+.perk-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Plans grid ────────────────────────────── */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.plan-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.plan-card-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--app-text);
+  margin-bottom: 8px;
+}
+.plan-mo {
+  font-size: 0.75rem;
+  color: var(--app-text-muted);
+  font-weight: 400;
+}
+.plan-card-perks {
+  font-size: 0.75rem;
+  color: var(--app-text-dim);
+  line-height: 1.5;
+}
+
+/* ── Referral ──────────────────────────────── */
+.referral-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.referral-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.referral-code {
+  flex: 1;
+  background: var(--app-surface-2);
+  border: 1px dashed rgba(201, 168, 76, 0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: monospace;
+  color: var(--app-gold);
+  letter-spacing: 0.1em;
+}
+</style>

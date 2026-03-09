@@ -1,6 +1,6 @@
 # Lions Barbershop Dashboard — Progress
 
-Last updated: 2026-03-08 (Phase 4 started)
+Last updated: 2026-03-08
 
 ---
 
@@ -101,43 +101,104 @@ Last updated: 2026-03-08 (Phase 4 started)
 
 ---
 
-## Phase 4 — Multi-Role Business Management Platform
+## Phase 4 — Multi-Role Business Management Platform ✅ Complete
 
 **Theme:** Innovate. Automate. Elevate.
-**Started:** 2026-03-08
+**Completed:** 2026-03-08
 **Full checklist:** [phases/phase-4-rebrand.md](./phases/phase-4-rebrand.md)
 
 ### Phase 4.1 — Foundation Stores
-- [ ] `location.js` — 3 locations (Downtown / East Side / North Campus), activeLocationId
-- [ ] `membership.js` — Essential $49 / Premium $89 / VIP $149, MRR stats
-- [ ] `clients.js` — CRM profiles, visit history, preferences, notes
-- [ ] `revenue.js` — daily/weekly/monthly financials by barber + service
-- [ ] `barber.js` — individual barber earnings, schedule, clients, ratings
-- [ ] `liveFeed.js` — seeded real-time ops events for ticker
-- [ ] `quevex.js` — AI chat state, role context, mock responses
+- [x] `location.js` — 3 locations (Downtown / East Side / North Campus), activeLocationId
+- [x] `membership.js` — Essential $49 / Premium $89 / VIP $149, MRR stats
+- [x] `clients.js` — CRM profiles, visit history, preferences, notes
+- [x] `revenue.js` — daily/weekly/monthly financials by barber + service
+- [x] `barber.js` — individual barber earnings, schedule, clients, ratings
+- [x] `liveFeed.js` — seeded real-time ops events for ticker
+- [x] `quevex.js` — AI chat state, role context, mock responses
 
 ### Phase 4.2 — Router + Gateway
-- [ ] `/app` → RoleGateway.vue (5 role cards, tagline "Innovate. Automate. Elevate.")
-- [ ] `/app/super-admin/*` → 8 routes
-- [ ] `/app/admin/*` → 8 routes
-- [ ] `/app/staff/*` → 7 routes (refactored from /dashboard/staff)
-- [ ] `/app/barber/*` → 6 routes
-- [ ] `/app/client/*` → 6 routes
+- [x] `/app` → RoleGateway.vue (5 role cards, tagline "Innovate. Automate. Elevate.")
+- [x] `/app/super-admin/*` → 8 routes
+- [x] `/app/admin/*` → 8 routes
+- [x] `/app/staff/*` → 7 routes (refactored from /dashboard/staff)
+- [x] `/app/barber/*` → 6 routes
+- [x] `/app/client/*` → 6 routes
 
 ### Phase 4.3 — Shared Components
-- [ ] `LiveFeedTicker.vue` — animated ops ticker (all topbars)
-- [ ] `AIInsightsStrip.vue` — gold-border collapsible insight (all overviews)
-- [ ] `ClientIntelCard.vue` — tier badge, last visit, notes, QueVex upsell
-- [ ] `RevenueForecastWidget.vue` — progress bar vs last month
-- [ ] `QueVexChat.vue` — chat UI, prompt chips, mock responses
-- [ ] `LocationRivalryBoard.vue` — gamified leaderboard with trophies
+- [x] `LiveFeedTicker.vue` — animated ops ticker (all topbars)
+- [x] `AIInsightsStrip.vue` — gold-border collapsible insight (all overviews)
+- [x] `ClientIntelCard.vue` — tier badge, last visit, notes, QueVex upsell
+- [x] `RevenueForecastWidget.vue` — progress bar vs last month
+- [x] `QueVexChat.vue` — chat UI, prompt chips, mock responses
+- [x] `LocationRivalryBoard.vue` — gamified leaderboard with trophies
 
-### Phase 4.4–4.10 — All Panel Views (37 total)
-- [ ] Super Admin: 8 views (overview / locations / analytics / revenue / membership / staff / settings / ai)
-- [ ] Admin: 8 views (overview / schedule / team / clients / revenue / membership / inventory / ai)
-- [ ] Staff: 7 views — fill all placeholders (overview / schedule / queue / clients / revenue / inventory / ai)
-- [ ] Barber: 6 views (overview / schedule / clients / earnings / reviews / ai)
-- [ ] Client: 6 views (dashboard / appointments / history / membership / preferences / ai)
+### Phase 4.4–4.10 — All Panel Views (39 total)
+- [x] Super Admin: 8 views (overview / locations / analytics / revenue / membership / staff / settings / ai)
+- [x] Admin: 8 views (overview / schedule / team / clients / revenue / membership / inventory / ai)
+- [x] Staff: 7 views — fill all placeholders (overview / schedule / queue / clients / revenue / inventory / ai)
+- [x] Barber: 6 views (overview / schedule / clients / earnings / reviews / ai)
+- [x] Client: 6 views (dashboard / appointments / history / membership / preferences / ai)
+
+### Phase 4.x — Visual Design System Pass
+- [x] App design system applied to all 39 views and shared components
+- [x] Design tokens: `--app-*`, `.app-card`, `.app-stat`, `.app-badge`, `.app-btn`, `.app-enter` animations
+- [x] Contrast audit: boosted `--app-text-dim` to 72%, `--app-text-muted` to 50%, `--app-border` to `#253050`
+- [x] Global `.app-input`, `.app-select`, `.app-textarea` form element classes
+- [x] Custom dropdown arrow SVG on all select elements with option contrast
+- [x] Nav section labels, stat labels, table headers all upgraded from 30% to 72% opacity
+
+---
+
+## Phase 5 — Full Platform Build (Supabase + Stripe + Real Data)
+
+**Goal:** Replace Vagaro entirely. Own booking, payments, CRM, membership, and analytics.
+**Started:** TBD
+**Full checklist:** [phases/phase-5-platform.md](./phases/phase-5-platform.md)
+
+### 5.1 — Supabase Foundation
+- [ ] Schema migration (all tables)
+- [ ] RLS policies (all tables, all roles)
+- [ ] Supabase client init (`src/lib/supabase.js`)
+- [ ] Auth integration — login/logout, role detection, panel redirect
+- [ ] Replace all Pinia mock stores with real Supabase queries
+- [ ] Supabase Realtime → liveFeed store (live ticker, queue updates)
+
+### 5.2 — Booking System
+- [ ] Public booking wizard (service → barber → time → payment)
+- [ ] Availability engine (blocks from availability + time_off + existing appointments)
+- [ ] Barber availability manager (CRUD for availability + time_off)
+- [ ] Appointment CRUD (create, confirm, cancel, complete, no-show)
+- [ ] Client account creation at booking (Supabase auth)
+
+### 5.3 — Stripe Payments
+- [ ] Online payment via Stripe Payment Element in booking wizard
+- [ ] Stripe Billing — membership plans (Essential/Premium/VIP)
+- [ ] Subscription management (upgrade, downgrade, cancel)
+- [ ] Stripe Terminal — in-shop POS from Staff panel
+- [ ] Supabase Edge Function: stripe-webhook handler (4 events)
+- [ ] Admin: real subscriber list, at-risk alerts from webhook data
+
+### 5.4 — Barber Performance (Live Data)
+- [ ] Earnings auto-calculated from payments table
+- [ ] Cuts tracked per barber from completed appointments
+- [ ] Upsell tracking (upsell_service_id on appointments)
+- [ ] Reviews linked to appointments, rating aggregated per barber
+- [ ] Manual override — admin can edit appointment price/service
+- [ ] Barber panel: all mock data replaced with real queries
+
+### 5.5 — Attribution + Marketing Analytics
+- [ ] ad_sessions table captures UTM params at site visit
+- [ ] useTracker.js: persist session_id, POST to Supabase
+- [ ] Booking completion: link appointment to ad_session
+- [ ] BookingFunnelView: real funnel metrics (visit → intent → booked → paid)
+- [ ] Meta Ads API integration (campaign spend, CPL, ROAS)
+- [ ] Google Ads API integration
+
+### 5.6 — QueVex AI Integration
+- [ ] Replace QueVexChat.vue mock responses with QueVex widget
+- [ ] useQueVexContext.js composable (role-scoped data fetcher)
+- [ ] Widget mounted in all 5 /ai views with correct context
+- [ ] Retire quevex.js mock store
 
 ---
 
@@ -149,3 +210,4 @@ Last updated: 2026-03-08 (Phase 4 started)
 | ApexCharts bundle ~517KB gzipped — consider dynamic import | Medium | open |
 | `/api/events` fetch fails silently (no backend yet) — events re-queued in store | Low | expected |
 | `bg-10.webp` is only 4KB — likely wrong image fetched | Low | open |
+| Phase 5 Supabase + Stripe not yet started | High | planned |
