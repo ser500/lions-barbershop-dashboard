@@ -1,10 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { supabase } from '@/lib/supabase'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     // Marketing site
     { path: '/', component: () => import('../views/SiteHome.vue') },
+
+    // Auth
+    { path: '/login', component: () => import('../views/auth/LoginView.vue') },
 
     // Site Analytics (renamed from /dashboard)
     {
@@ -18,18 +22,18 @@ const router = createRouter({
         { path: 'funnel',    component: () => import('../views/dashboard/BookingFunnelView.vue') },
         { path: 'services',  component: () => import('../views/dashboard/ServicesView.vue') },
         { path: 'team',      component: () => import('../views/dashboard/TeamView.vue') },
-        { path: 'sample',    component: () => import('../views/dashboard/SampleView.vue') },
       ],
     },
 
     // Role Gateway
-    { path: '/app', component: () => import('../views/app/RoleGateway.vue') },
+    { path: '/app', component: () => import('../views/app/RoleGateway.vue'), meta: { requiresAuth: true } },
 
     // Super Admin panel
     {
       path: '/app/super-admin',
       redirect: '/app/super-admin/overview',
       component: () => import('../views/app/SuperAdminLayout.vue'),
+      meta: { requiresAuth: true, role: 'super_admin' },
       children: [
         { path: 'overview',   component: () => import('../views/app/super-admin/OverviewView.vue') },
         { path: 'locations',  component: () => import('../views/app/super-admin/LocationsView.vue') },
@@ -47,6 +51,7 @@ const router = createRouter({
       path: '/app/admin',
       redirect: '/app/admin/overview',
       component: () => import('../views/app/AdminLayout.vue'),
+      meta: { requiresAuth: true, role: 'admin' },
       children: [
         { path: 'overview',   component: () => import('../views/app/admin/OverviewView.vue') },
         { path: 'schedule',   component: () => import('../views/app/admin/ScheduleView.vue') },
@@ -64,6 +69,7 @@ const router = createRouter({
       path: '/app/staff',
       redirect: '/app/staff/overview',
       component: () => import('../views/app/StaffLayout.vue'),
+      meta: { requiresAuth: true, role: 'staff' },
       children: [
         { path: 'overview',   component: () => import('../views/app/staff/StaffOverviewView.vue') },
         { path: 'schedule',   component: () => import('../views/app/staff/StaffScheduleView.vue') },
@@ -80,6 +86,7 @@ const router = createRouter({
       path: '/app/barber',
       redirect: '/app/barber/overview',
       component: () => import('../views/app/BarberLayout.vue'),
+      meta: { requiresAuth: true, role: 'barber' },
       children: [
         { path: 'overview',  component: () => import('../views/app/barber/OverviewView.vue') },
         { path: 'schedule',  component: () => import('../views/app/barber/ScheduleView.vue') },
@@ -95,6 +102,7 @@ const router = createRouter({
       path: '/app/client',
       redirect: '/app/client/dashboard',
       component: () => import('../views/app/ClientLayout.vue'),
+      meta: { requiresAuth: true, role: 'client' },
       children: [
         { path: 'dashboard',    component: () => import('../views/app/client/DashboardView.vue') },
         { path: 'appointments', component: () => import('../views/app/client/AppointmentsView.vue') },
@@ -114,6 +122,23 @@ const router = createRouter({
     if (savedPosition) return savedPosition
     return { top: 0 }
   },
+})
+
+const ROLE_ROUTES = {
+  super_admin: '/app/super-admin',
+  admin: '/app/admin',
+  staff: '/app/staff',
+  barber: '/app/barber',
+  client: '/app/client',
+}
+
+router.beforeEach(async (to) => {
+  if (!to.meta.requiresAuth) return true
+
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) return '/login'
+
+  return true
 })
 
 export default router
