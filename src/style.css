@@ -1,5 +1,6 @@
 /* ── Google Fonts import ────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Poppins:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;900&family=Cinzel:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss/utilities";
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
@@ -112,3 +113,357 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* ════════════════════════════════════════════════════════════
+   APP DESIGN SYSTEM  —  /app/* panels
+   ════════════════════════════════════════════════════════════ */
+
+/* ── App Tokens ─────────────────────────────────────────── */
+:root {
+  --app-bg:           #06080f;
+  --app-sidebar:      #07090e;
+  --app-surface:      #0c1120;
+  --app-surface-2:    #111828;
+  --app-border:       #253050;
+  --app-border-dim:   #192034;
+  --app-subtle:       #1c2840;
+  --app-gold:         #c9a84c;
+  --app-gold-dim:     rgba(201,168,76,0.14);
+  --app-gold-glow:    rgba(201,168,76,0.06);
+  --app-text:         rgba(255,255,255,0.95);
+  --app-text-dim:     rgba(255,255,255,0.72);
+  --app-text-muted:   rgba(255,255,255,0.50);
+  --app-green:        #6dc97c;
+  --app-amber:        #e8a84c;
+  --app-red:          #d46c6c;
+  --app-blue:         #5a8fd4;
+}
+
+/* ── Keyframes ──────────────────────────────────────────── */
+@keyframes app-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes app-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes app-scale-in {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes app-glow-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 1; }
+}
+@keyframes app-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── Enter Animations ───────────────────────────────────── */
+.app-enter        { animation: app-fade-up  0.45s ease forwards; opacity: 0; }
+.app-enter-fast   { animation: app-fade-up  0.28s ease forwards; opacity: 0; }
+.app-enter-scale  { animation: app-scale-in 0.38s ease forwards; opacity: 0; }
+.app-d1  { animation-delay: 0.04s; }
+.app-d2  { animation-delay: 0.09s; }
+.app-d3  { animation-delay: 0.14s; }
+.app-d4  { animation-delay: 0.19s; }
+.app-d5  { animation-delay: 0.24s; }
+.app-d6  { animation-delay: 0.30s; }
+.app-d7  { animation-delay: 0.36s; }
+
+/* ── Card ───────────────────────────────────────────────── */
+.app-card {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border-dim);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.app-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.22), transparent);
+  pointer-events: none;
+}
+.app-card.gold {
+  background: rgba(201,168,76,0.045);
+  border-color: rgba(201,168,76,0.18);
+}
+.app-card.gold::before {
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.55), transparent);
+}
+.app-card.lift {
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.app-card.lift:hover {
+  transform: translateY(-3px);
+  border-color: rgba(201,168,76,0.22);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,76,0.08);
+}
+
+/* ── Stat Card ──────────────────────────────────────────── */
+.app-stat {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border-dim);
+  border-radius: 12px;
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.app-stat::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.28), transparent);
+  pointer-events: none;
+}
+.app-stat:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201,168,76,0.18);
+}
+.app-stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--app-text-dim);
+  margin-bottom: 10px;
+}
+.app-stat-value {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--app-text);
+  line-height: 1;
+  margin-bottom: 6px;
+  font-family: 'Inter', sans-serif;
+}
+.app-stat-sub {
+  font-size: 0.72rem;
+  color: var(--app-text-dim);
+}
+.app-stat-icon {
+  position: absolute;
+  top: 18px; right: 18px;
+  font-size: 1.4rem;
+  color: var(--app-gold);
+  opacity: 0.45;
+}
+
+/* ── Section Label ──────────────────────────────────────── */
+.app-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--app-text-dim);
+  margin-bottom: 12px;
+}
+
+/* ── Divider ────────────────────────────────────────────── */
+.app-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--app-border), transparent);
+  border: none; margin: 0;
+}
+.app-divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.38), transparent);
+  border: none;
+}
+
+/* ── Badge ──────────────────────────────────────────────── */
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.app-badge.gold   { background: rgba(201,168,76,0.12); color: #c9a84c; border: 1px solid rgba(201,168,76,0.28); }
+.app-badge.green  { background: rgba(109,201,124,0.10); color: #6dc97c; border: 1px solid rgba(109,201,124,0.22); }
+.app-badge.amber  { background: rgba(232,168,76,0.10);  color: #e8a84c; border: 1px solid rgba(232,168,76,0.22); }
+.app-badge.red    { background: rgba(212,108,108,0.10); color: #d46c6c; border: 1px solid rgba(212,108,108,0.22); }
+.app-badge.blue   { background: rgba(90,143,212,0.10);  color: #5a8fd4; border: 1px solid rgba(90,143,212,0.22); }
+.app-badge.vip    { background: rgba(232,232,232,0.09); color: #e8e8e8; border: 1px solid rgba(232,232,232,0.22); }
+
+/* ── Person Badge (avatar + name pill) ─────────────────── */
+.person-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 10px 3px 3px;
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  background: var(--app-surface-2);
+  width: fit-content;
+}
+
+/* ── App Buttons ────────────────────────────────────────── */
+.app-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+}
+.app-btn.primary {
+  background: linear-gradient(135deg, #c9a84c 0%, #8a7009 100%);
+  color: #060810;
+}
+.app-btn.primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(201,168,76,0.28);
+}
+.app-btn.ghost {
+  background: transparent;
+  color: var(--app-text-dim);
+  border: 1px solid var(--app-border);
+}
+.app-btn.ghost:hover {
+  color: var(--app-text);
+  border-color: rgba(201,168,76,0.28);
+  background: rgba(201,168,76,0.04);
+}
+
+/* ── Progress ───────────────────────────────────────────── */
+.app-progress {
+  height: 5px;
+  background: var(--app-subtle);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.app-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(201,168,76,0.55), #c9a84c);
+  border-radius: 99px;
+  transition: width 0.6s ease;
+}
+
+/* ── Live Dot ───────────────────────────────────────────── */
+.app-live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #6dc97c;
+  box-shadow: 0 0 7px #6dc97c;
+  animation: app-glow-pulse 2s ease-in-out infinite;
+}
+
+/* ── Table ──────────────────────────────────────────────── */
+.app-table { width: 100%; border-collapse: collapse; }
+.app-table th {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--app-text-dim);
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--app-border-dim);
+}
+.app-table td {
+  font-size: 0.83rem;
+  color: var(--app-text-dim);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--app-border-dim);
+}
+.app-table tr:last-child td { border-bottom: none; }
+.app-table tr:hover td { background: rgba(201,168,76,0.025); }
+
+/* ── Sidebar Nav ────────────────────────────────────────── */
+.app-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px 9px 14px;
+  margin-bottom: 2px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: var(--app-text-dim);
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+}
+.app-nav-item:hover {
+  color: var(--app-text);
+  background: rgba(255,255,255,0.04);
+}
+.app-nav-item.active {
+  color: var(--app-gold);
+  background: rgba(201,168,76,0.08);
+  border-left-color: var(--app-gold);
+}
+.app-nav-item.active i { color: var(--app-gold); }
+.app-nav-section {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  padding: 0 14px;
+  margin: 18px 0 6px;
+}
+.app-nav-section:first-child { margin-top: 0; }
+
+/* ── Form Elements ──────────────────────────────────────── */
+/* Applied to all inputs/selects inside app panels */
+.app-input,
+.app-select,
+.app-textarea {
+  width: 100%;
+  background: var(--app-surface-2);
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--app-text);
+  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  box-sizing: border-box;
+  appearance: none;
+}
+.app-input:focus,
+.app-select:focus,
+.app-textarea:focus {
+  border-color: rgba(201,168,76,0.5);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+}
+.app-input::placeholder,
+.app-textarea::placeholder {
+  color: var(--app-text-muted);
+}
+/* Dropdown arrow for selects */
+.app-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.app-select option {
+  background: #111828;
+  color: rgba(255,255,255,0.9);
+}
+.app-select option:checked {
+  background: rgba(201,168,76,0.18);
+  color: #c9a84c;
+}

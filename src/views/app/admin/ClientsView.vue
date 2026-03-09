@@ -21,14 +21,20 @@ const filtered = computed(() => {
   return list
 })
 
-function planBadgeStyle(plan) {
-  if (plan === 'vip') return 'background:rgba(232,232,232,0.1);color:#e8e8e8;border:1px solid rgba(232,232,232,0.3)'
-  if (plan === 'premium') return 'background:rgba(201,168,76,0.15);color:#c9a84c;border:1px solid rgba(201,168,76,0.3)'
-  return 'background:rgba(168,184,200,0.1);color:#a8b8c8;border:1px solid rgba(168,184,200,0.3)'
+function planBadgeClass(plan) {
+  if (plan === 'vip') return 'vip'
+  if (plan === 'premium') return 'gold'
+  return 'blue'
 }
 
 function planLabel(plan) {
   return plan.charAt(0).toUpperCase() + plan.slice(1)
+}
+
+function lastVisitColor(daysSince) {
+  if (daysSince < 30) return 'var(--app-green)'
+  if (daysSince <= 60) return 'var(--app-amber)'
+  return 'var(--app-red)'
 }
 
 function openClient(client) {
@@ -37,68 +43,76 @@ function openClient(client) {
 }
 </script>
 <template>
-  <div class="p-6 font-inter">
-    <!-- Search -->
-    <div class="relative mb-5">
-      <i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-base"></i>
-      <input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Search clients by name or barber..."
-        style="width:100%;background:#111;border:1px solid #2a2a2a;color:#e5e7eb;font-size:0.9rem;padding:12px 16px 12px 44px;border-radius:10px;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s"
-        @focus="e => e.target.style.borderColor='#b8960c'"
-        @blur="e => e.target.style.borderColor='#2a2a2a'"
-      />
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;font-family:'Inter',sans-serif">
+    <!-- Search + filter row -->
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="position:relative;flex:1;min-width:200px">
+        <i class="ph ph-magnifying-glass" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--app-text-muted);font-size:0.9rem"></i>
+        <input
+          v-model="searchQuery"
+          type="text"
+          placeholder="Search clients by name or barber..."
+          style="width:100%;background:var(--app-surface);border:1px solid var(--app-border);color:var(--app-text);font-size:0.9rem;padding:10px 14px 10px 40px;border-radius:8px;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s;box-sizing:border-box"
+          @focus="e => e.target.style.borderColor='var(--app-gold)'"
+          @blur="e => e.target.style.borderColor='var(--app-border)'"
+        />
+      </div>
+      <div style="display:flex;gap:6px">
+        <button
+          v-for="tab in [{ id: 'all', label: 'All Clients' }, { id: 'vip-premium', label: 'Premium / VIP' }, { id: 'inactive', label: 'Inactive 60+' }]"
+          :key="tab.id"
+          class="app-btn"
+          :class="activeTab === tab.id ? 'primary' : 'ghost'"
+          @click="activeTab = tab.id"
+          style="font-size:0.78rem;padding:7px 14px"
+        >{{ tab.label }}</button>
+      </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="flex gap-1 mb-5 p-1 rounded-lg" style="background:#111;border:1px solid #1a1a1a;display:inline-flex">
-      <button v-for="tab in [{ id: 'all', label: 'All Clients' }, { id: 'vip-premium', label: 'Premium / VIP' }, { id: 'inactive', label: 'Inactive 60+ days' }]" :key="tab.id"
-        @click="activeTab = tab.id"
-        class="px-4 py-1.5 rounded-md text-sm font-medium transition-all"
-        :style="activeTab === tab.id ? 'background:rgba(184,150,12,0.15);color:#b8960c;border:1px solid rgba(184,150,12,0.3)' : 'color:#6b7280;border:1px solid transparent'"
-      >{{ tab.label }}</button>
+    <!-- Inactive 60+ callout -->
+    <div v-if="activeTab === 'inactive'" class="app-card app-enter" style="padding:14px 16px;border-left:3px solid var(--app-amber);display:flex;align-items:center;gap:10px">
+      <i class="ph ph-clock-countdown" style="color:var(--app-amber);font-size:1rem;flex-shrink:0"></i>
+      <span style="font-size:0.83rem;color:var(--app-text-dim)">Showing clients inactive for 60+ days. Consider sending a win-back offer.</span>
     </div>
 
-    <!-- Client table -->
-    <div class="rounded-xl overflow-hidden" style="background:#111;border:1px solid #1a1a1a">
-      <table class="w-full" style="border-collapse:collapse">
+    <!-- Clients table -->
+    <div class="app-card app-enter" style="padding:0;overflow:hidden">
+      <table class="app-table" style="width:100%">
         <thead>
-          <tr style="border-bottom:1px solid #1a1a1a;background:#0f0f0f">
-            <th class="text-left px-5 py-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Client</th>
-            <th class="text-center px-4 py-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Plan</th>
-            <th class="text-right px-4 py-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Last Visit</th>
-            <th class="text-right px-4 py-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Visits</th>
-            <th class="text-right px-4 py-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Total Spend</th>
-            <th class="text-left px-4 py-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Barber</th>
-            <th v-if="activeTab === 'inactive'" class="text-center px-4 py-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Action</th>
+          <tr>
+            <th style="text-align:left;padding:12px 20px">Client</th>
+            <th style="text-align:center;padding:12px 16px">Plan</th>
+            <th style="text-align:right;padding:12px 16px">Last Visit</th>
+            <th style="text-align:right;padding:12px 16px">Visits</th>
+            <th style="text-align:right;padding:12px 16px">Total Spend</th>
+            <th style="text-align:left;padding:12px 16px">Barber</th>
+            <th v-if="activeTab === 'inactive'" style="text-align:center;padding:12px 16px">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr
             v-for="client in filtered"
             :key="client.id"
-            class="cursor-pointer transition-all"
-            style="border-bottom:1px solid #0f0f0f"
+            style="cursor:pointer"
             @click="openClient(client)"
-            @mouseenter="e => e.currentTarget.style.background='rgba(184,150,12,0.04)'"
+            @mouseenter="e => e.currentTarget.style.background='rgba(201,168,76,0.04)'"
             @mouseleave="e => e.currentTarget.style.background='transparent'"
           >
-            <td class="px-5 py-3">
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-black flex-shrink-0" style="background:linear-gradient(135deg,#b8960c,#8a7009)">{{ client.initials }}</div>
-                <span style="font-size:0.85rem;font-weight:600;color:#e5e7eb">{{ client.name }}</span>
+            <td style="padding:12px 20px">
+              <div class="person-badge">
+                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--app-gold),#8a7009);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#000;flex-shrink:0">{{ client.initials }}</div>
+                <span style="font-size:0.85rem;font-weight:600;color:var(--app-text)">{{ client.name }}</span>
               </div>
             </td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs px-2 py-0.5 rounded-full font-medium" :style="planBadgeStyle(client.plan)">{{ planLabel(client.plan) }}</span>
+            <td style="padding:12px 16px;text-align:center">
+              <span class="app-badge" :class="planBadgeClass(client.plan)">{{ planLabel(client.plan) }}</span>
             </td>
-            <td class="px-4 py-3 text-right" style="font-size:0.8rem;" :style="{ color: client.daysSince > 30 ? '#ef4444' : '#9ca3af' }">{{ client.daysSince }}d ago</td>
-            <td class="px-4 py-3 text-right" style="font-size:0.8rem;color:#9ca3af">{{ client.visits }}</td>
-            <td class="px-4 py-3 text-right" style="font-size:0.8rem;color:#b8960c;font-weight:600">${{ client.totalSpend.toLocaleString() }}</td>
-            <td class="px-4 py-3" style="font-size:0.8rem;color:#9ca3af">{{ client.preferredBarber }}</td>
-            <td v-if="activeTab === 'inactive'" class="px-4 py-3 text-center">
-              <button @click.stop style="font-size:0.72rem;background:rgba(184,150,12,0.15);color:#b8960c;border:1px solid rgba(184,150,12,0.3);padding:4px 10px;border-radius:6px;cursor:pointer">Send Win-back</button>
+            <td style="padding:12px 16px;text-align:right;font-size:0.8rem;font-weight:600" :style="{ color: lastVisitColor(client.daysSince) }">{{ client.daysSince }}d ago</td>
+            <td style="padding:12px 16px;text-align:right;font-size:0.8rem;color:var(--app-text-muted)">{{ client.visits }}</td>
+            <td style="padding:12px 16px;text-align:right;font-size:0.8rem;font-weight:700;color:var(--app-gold)">${{ client.totalSpend.toLocaleString() }}</td>
+            <td style="padding:12px 16px;font-size:0.8rem;color:var(--app-text-muted)">{{ client.preferredBarber }}</td>
+            <td v-if="activeTab === 'inactive'" style="padding:12px 16px;text-align:center">
+              <button @click.stop class="app-btn ghost" style="font-size:0.72rem;padding:4px 10px">Send Win-back</button>
             </td>
           </tr>
         </tbody>
@@ -107,31 +121,31 @@ function openClient(client) {
 
     <!-- Client detail modal -->
     <div v-if="selectedClient" class="fixed inset-0 flex items-center justify-center z-50 px-4" style="background:rgba(0,0,0,0.7)" @click.self="selectedClient = null">
-      <div class="rounded-xl w-full max-w-lg overflow-hidden" style="background:#111;border:1px solid #2a2a2a;max-height:85vh;overflow-y:auto">
-        <div class="flex items-center justify-between px-6 py-5" style="border-bottom:1px solid #1a1a1a">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-black" style="background:linear-gradient(135deg,#b8960c,#8a7009)">{{ selectedClient.initials }}</div>
+      <div style="background:var(--app-surface-2);border:1px solid var(--app-border);border-radius:12px;padding:0;width:100%;max-width:480px;max-height:85vh;overflow-y:auto">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--app-border)">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--app-gold),#8a7009);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;color:#000">{{ selectedClient.initials }}</div>
             <div>
-              <div style="font-size:1rem;font-weight:700;color:#e5e7eb">{{ selectedClient.name }}</div>
-              <div style="font-size:0.75rem;color:#6b7280">{{ selectedClient.preferredBarber }} · {{ selectedClient.preferredService }}</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--app-text)">{{ selectedClient.name }}</div>
+              <div style="font-size:0.75rem;color:var(--app-text-muted)">{{ selectedClient.preferredBarber }} · {{ selectedClient.preferredService }}</div>
             </div>
           </div>
-          <button @click="selectedClient = null" style="color:#6b7280;background:transparent;border:none;font-size:1.2rem;cursor:pointer">×</button>
+          <button @click="selectedClient = null" style="color:var(--app-text-muted);background:transparent;border:none;font-size:1.2rem;cursor:pointer">×</button>
         </div>
-        <div class="px-6 py-5 space-y-4">
+        <div style="padding:20px 24px;display:flex;flex-direction:column;gap:16px">
           <!-- Stats row -->
-          <div class="grid grid-cols-3 gap-3">
-            <div class="p-3 rounded-lg text-center" style="background:#0f0f0f;border:1px solid #1e1e1e">
-              <div style="font-size:1rem;font-weight:700;color:#b8960c">{{ selectedClient.visits }}</div>
-              <div style="font-size:0.68rem;color:#6b7280">Total Visits</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <div style="padding:12px;border-radius:8px;text-align:center;background:var(--app-surface);border:1px solid var(--app-border-dim)">
+              <div style="font-size:1rem;font-weight:700;color:var(--app-gold)">{{ selectedClient.visits }}</div>
+              <div style="font-size:0.68rem;color:var(--app-text-muted)">Total Visits</div>
             </div>
-            <div class="p-3 rounded-lg text-center" style="background:#0f0f0f;border:1px solid #1e1e1e">
-              <div style="font-size:1rem;font-weight:700;color:#b8960c">${{ selectedClient.totalSpend.toLocaleString() }}</div>
-              <div style="font-size:0.68rem;color:#6b7280">Total Spent</div>
+            <div style="padding:12px;border-radius:8px;text-align:center;background:var(--app-surface);border:1px solid var(--app-border-dim)">
+              <div style="font-size:1rem;font-weight:700;color:var(--app-gold)">${{ selectedClient.totalSpend.toLocaleString() }}</div>
+              <div style="font-size:0.68rem;color:var(--app-text-muted)">Total Spent</div>
             </div>
-            <div class="p-3 rounded-lg text-center" style="background:#0f0f0f;border:1px solid #1e1e1e">
-              <div style="font-size:1rem;font-weight:700;color:#b8960c">{{ selectedClient.daysSince }}d</div>
-              <div style="font-size:0.68rem;color:#6b7280">Since Last Visit</div>
+            <div style="padding:12px;border-radius:8px;text-align:center;background:var(--app-surface);border:1px solid var(--app-border-dim)">
+              <div style="font-size:1rem;font-weight:700;color:var(--app-gold)">{{ selectedClient.daysSince }}d</div>
+              <div style="font-size:0.68rem;color:var(--app-text-muted)">Since Last Visit</div>
             </div>
           </div>
 
@@ -140,14 +154,14 @@ function openClient(client) {
 
           <!-- Add note -->
           <div>
-            <label style="font-size:0.72rem;color:#6b7280;display:block;margin-bottom:4px">Add Note</label>
+            <label style="font-size:0.72rem;color:var(--app-text-muted);display:block;margin-bottom:4px">Add Note</label>
             <textarea
               v-model="newNote"
               rows="3"
               placeholder="Add a note about this client..."
-              style="width:100%;background:#0f0f0f;border:1px solid #2a2a2a;color:#e5e7eb;font-size:0.83rem;padding:10px 12px;border-radius:8px;outline:none;font-family:'Inter',sans-serif;resize:vertical"
+              style="width:100%;background:var(--app-surface);border:1px solid var(--app-border);color:var(--app-text);font-size:0.83rem;padding:10px 12px;border-radius:8px;outline:none;font-family:'Inter',sans-serif;resize:vertical;box-sizing:border-box"
             ></textarea>
-            <button class="mt-2 px-4 py-1.5 rounded-lg text-xs font-semibold text-black" style="background:linear-gradient(135deg,#b8960c,#8a7009);border:none;cursor:pointer">Save Note</button>
+            <button class="app-btn primary" style="margin-top:8px;font-size:0.8rem;padding:7px 16px">Save Note</button>
           </div>
         </div>
       </div>

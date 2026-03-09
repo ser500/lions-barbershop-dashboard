@@ -10,53 +10,48 @@ const allBarbers = [
   { name: 'Andre Smith',    initials: 'AS', location: 'East Side', apptsMtd: 96,  revMtd: 11420, utilization: 62, status: 'active' },
 ]
 
-const topPerformers = allBarbers.slice(0, 3)
-
-function statusStyle(status) {
-  if (status === 'active') return 'background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2)'
-  return 'background:#1a1a1a;color:#6b7280;border:1px solid #2a2a2a'
-}
+const topPerformers = allBarbers.slice(0, 5)
 </script>
 <template>
-  <div class="p-6 font-inter space-y-6">
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;font-family:'Inter',sans-serif">
     <!-- All barbers table -->
-    <div class="rounded-xl p-5" style="background:#111;border:1px solid #1a1a1a">
-      <div class="mb-4">
-        <div style="font-size:0.9rem;font-weight:700;color:#e5e7eb">All Barbers</div>
-        <div style="font-size:0.75rem;color:#6b7280;margin-top:2px">Month-to-date performance across all locations</div>
+    <div class="app-card app-enter app-d1" style="padding:0;overflow:hidden">
+      <div style="padding:20px 20px 0">
+        <div class="app-section-label" style="margin-bottom:4px">All Barbers</div>
+        <div style="font-size:0.75rem;color:var(--app-text-muted);margin-bottom:16px">Month-to-date performance across all locations</div>
       </div>
-      <table class="w-full" style="border-collapse:collapse">
+      <table class="app-table w-full">
         <thead>
-          <tr style="border-bottom:1px solid #1a1a1a">
-            <th class="text-left pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Barber</th>
-            <th class="text-left pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Location</th>
-            <th class="text-right pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Appts MTD</th>
-            <th class="text-right pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Revenue MTD</th>
-            <th class="text-right pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Utilization</th>
-            <th class="text-center pb-3" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6b7280">Status</th>
+          <tr>
+            <th class="text-left">Barber</th>
+            <th class="text-left">Location</th>
+            <th class="text-right">Appts MTD</th>
+            <th class="text-right">Revenue MTD</th>
+            <th class="text-right">Utilization</th>
+            <th class="text-center">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="b in allBarbers" :key="b.name" style="border-bottom:1px solid #0f0f0f">
-            <td class="py-3">
-              <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-black" style="background:linear-gradient(135deg,#b8960c,#8a7009)">{{ b.initials }}</div>
-                <span style="font-size:0.83rem;font-weight:600;color:#e5e7eb">{{ b.name }}</span>
+          <tr v-for="b in allBarbers" :key="b.name">
+            <td>
+              <div class="person-badge">
+                <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-black" style="background:linear-gradient(135deg,var(--app-gold),#8a7009)">{{ b.initials }}</div>
+                <span style="font-size:0.83rem;font-weight:600;color:var(--app-text)">{{ b.name }}</span>
               </div>
             </td>
-            <td class="py-3" style="font-size:0.8rem;color:#9ca3af">{{ b.location }}</td>
-            <td class="py-3 text-right" style="font-size:0.83rem;color:#9ca3af">{{ b.apptsMtd }}</td>
-            <td class="py-3 text-right" style="font-size:0.83rem;font-weight:600;color:#b8960c">${{ b.revMtd.toLocaleString() }}</td>
-            <td class="py-3 text-right">
+            <td><span class="app-badge blue">{{ b.location }}</span></td>
+            <td class="text-right" style="font-size:0.83rem;color:var(--app-text-muted)">{{ b.apptsMtd }}</td>
+            <td class="text-right" style="font-size:0.83rem;font-weight:600;color:var(--app-text)">{{ '$' + b.revMtd.toLocaleString() }}</td>
+            <td class="text-right">
               <div class="flex items-center justify-end gap-2">
-                <div style="width:60px;height:5px;background:#1a1a1a;border-radius:3px;overflow:hidden">
-                  <div style="height:100%;border-radius:3px;background:#b8960c" :style="{ width: b.utilization + '%' }"></div>
+                <div style="width:60px;height:5px;background:var(--app-surface-2);border-radius:3px;overflow:hidden">
+                  <div style="height:100%;border-radius:3px;background:var(--app-gold)" :style="{ width: b.utilization + '%' }"></div>
                 </div>
-                <span style="font-size:0.78rem;color:#9ca3af">{{ b.utilization }}%</span>
+                <span style="font-size:0.78rem;color:var(--app-text-muted)">{{ b.utilization }}%</span>
               </div>
             </td>
-            <td class="py-3 text-center">
-              <span class="text-xs px-2 py-0.5 rounded-full font-medium" :style="statusStyle(b.status)">{{ b.status }}</span>
+            <td class="text-center">
+              <span :class="b.status === 'active' ? 'app-badge green' : 'app-badge amber'">{{ b.status }}</span>
             </td>
           </tr>
         </tbody>
@@ -65,18 +60,26 @@ function statusStyle(status) {
 
     <!-- Top performers -->
     <div>
-      <div class="mb-4" style="font-size:0.9rem;font-weight:700;color:#e5e7eb">Top Performers</div>
-      <div class="grid grid-cols-3 gap-4">
-        <div v-for="(b, i) in topPerformers" :key="b.name" class="rounded-xl p-5 flex items-center gap-4" style="background:#111;border:1px solid #1a1a1a">
-          <div class="relative">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-black" style="background:linear-gradient(135deg,#b8960c,#8a7009)">{{ b.initials }}</div>
-            <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background:#050505;border:1px solid #1a1a1a;color:#b8960c">{{ i + 1 }}</div>
-          </div>
-          <div>
-            <div style="font-size:0.9rem;font-weight:700;color:#e5e7eb">{{ b.name }}</div>
-            <div style="font-size:0.75rem;color:#6b7280;margin-top:1px">{{ b.location }}</div>
-            <div style="font-size:1rem;font-weight:700;color:#b8960c;margin-top:4px">${{ b.revMtd.toLocaleString() }}</div>
-          </div>
+      <div class="app-section-label" style="margin-bottom:12px">Top Performers</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px">
+        <div
+          v-for="(b, i) in topPerformers"
+          :key="b.name"
+          class="app-card lift app-enter"
+          :class="`app-d${i + 2}`"
+          style="padding:16px;text-align:center;position:relative"
+        >
+          <!-- Rank badge -->
+          <div
+            style="position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800"
+            :style="i === 0
+              ? 'background:var(--app-gold);color:#060810'
+              : 'background:var(--app-surface-2);color:var(--app-text-muted);border:1px solid var(--app-border)'"
+          >{{ i + 1 }}</div>
+          <div class="mx-auto mb-3 w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-black" style="background:linear-gradient(135deg,var(--app-gold),#8a7009)">{{ b.initials }}</div>
+          <div style="font-size:0.88rem;font-weight:700;color:var(--app-text)">{{ b.name }}</div>
+          <div style="font-size:0.72rem;color:var(--app-text-muted);margin-top:2px">{{ b.location }}</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--app-gold);margin-top:8px">${{ b.revMtd.toLocaleString() }}</div>
         </div>
       </div>
     </div>

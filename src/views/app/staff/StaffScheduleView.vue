@@ -10,31 +10,34 @@ const selectedBarber = ref('All Barbers')
 const barbers = ['All Barbers', 'Devon R.', 'Marcus V.', 'James P.', 'Andre S.']
 </script>
 <template>
-  <div class="p-6 font-inter">
-    <div class="flex items-center justify-between mb-5">
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;font-family:'Inter',sans-serif">
+    <!-- Header row -->
+    <div class="flex items-center justify-between">
       <div>
-        <div style="font-size:1.1rem;font-weight:700;color:#e5e7eb">Today's Schedule</div>
-        <div style="font-size:0.78rem;color:#6b7280;margin-top:2px">All barbers · {{ store.schedule.length }} appointments</div>
+        <div class="app-section-label">Today's Schedule</div>
+        <div style="font-size:0.78rem;color:var(--app-text-muted);margin-top:2px">All barbers · {{ store.schedule.length }} appointments</div>
       </div>
-      <div class="flex items-center gap-3">
-        <select
-          v-model="selectedBarber"
-          style="background:#111;border:1px solid #2a2a2a;color:#e5e7eb;font-size:0.83rem;padding:8px 12px;border-radius:8px;outline:none;font-family:'Inter',sans-serif;cursor:pointer"
-        >
-          <option v-for="b in barbers" :key="b" :value="b">{{ b }}</option>
-        </select>
-        <button
-          @click="showModal = true"
-          class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-black"
-          style="background:linear-gradient(135deg,#b8960c,#8a7009);border:none;cursor:pointer"
-        >
-          <i class="ph ph-plus text-sm"></i>
-          New Appointment
-        </button>
-      </div>
+      <button class="app-btn primary" @click="showModal = true">
+        <i class="ph ph-plus"></i>
+        New Appointment
+      </button>
     </div>
 
-    <ScheduleTimeline :schedule="store.schedule" />
+    <!-- Barber filter pills -->
+    <div class="flex items-center gap-2 flex-wrap">
+      <button
+        v-for="b in barbers"
+        :key="b"
+        class="app-btn ghost"
+        :style="selectedBarber === b ? 'background:var(--app-gold);color:#060810;border-color:var(--app-gold)' : ''"
+        @click="selectedBarber = b"
+      >{{ b }}</button>
+    </div>
+
+    <!-- Schedule timeline -->
+    <div class="app-card app-enter app-d2" style="padding:20px">
+      <ScheduleTimeline :schedule="store.schedule" />
+    </div>
 
     <NewApptModal v-model="showModal" />
   </div>

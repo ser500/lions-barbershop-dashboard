@@ -3,10 +3,10 @@ defineProps({
   client: { type: Object, required: true }
 })
 
-function planBadgeStyle(plan) {
-  if (plan === 'vip') return 'background:rgba(232,232,232,0.1);color:#e8e8e8;border:1px solid rgba(232,232,232,0.3)'
-  if (plan === 'premium') return 'background:rgba(201,168,76,0.15);color:#c9a84c;border:1px solid rgba(201,168,76,0.3)'
-  return 'background:rgba(168,184,200,0.1);color:#a8b8c8;border:1px solid rgba(168,184,200,0.3)'
+function planBadgeClass(plan) {
+  if (plan === 'vip') return 'app-badge vip'
+  if (plan === 'premium') return 'app-badge gold'
+  return 'app-badge blue'
 }
 
 function planLabel(plan) {
@@ -14,27 +14,41 @@ function planLabel(plan) {
   if (plan === 'premium') return 'Premium'
   return 'Essential'
 }
+
+function avatarRingColor(plan) {
+  if (plan === 'vip' || plan === 'premium') return 'linear-gradient(135deg,var(--app-gold),#8a7009)'
+  return 'linear-gradient(135deg,var(--app-blue),#3a6fad)'
+}
 </script>
 <template>
-  <div class="font-inter" style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:12px">
-    <div class="flex items-center justify-between mb-2">
-      <div class="flex items-center gap-2">
-        <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-black flex-shrink-0" style="background:linear-gradient(135deg,#b8960c,#8a7009)">
+  <div class="app-card app-enter font-inter" style="padding:20px">
+    <div class="flex items-center justify-between mb-3">
+      <div class="person-badge">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-black flex-shrink-0" :style="{ background: avatarRingColor(client.plan) }">
           {{ client.initials || client.name.split(' ').map(n => n[0]).join('') }}
         </div>
-        <span style="font-size:0.85rem;font-weight:600;color:#e5e7eb">{{ client.name }}</span>
+        <span style="font-size:0.875rem;font-weight:600;color:var(--app-text)">{{ client.name }}</span>
       </div>
-      <span class="text-xs px-2 py-0.5 rounded-full font-medium" :style="planBadgeStyle(client.plan)">{{ planLabel(client.plan) }}</span>
+      <span :class="planBadgeClass(client.plan)">{{ planLabel(client.plan) }}</span>
     </div>
-    <div class="flex items-center gap-3 mb-2" style="font-size:0.75rem;color:#6b7280">
-      <span><i class="ph ph-clock mr-1"></i>{{ client.daysSince }} days ago</span>
-      <span><i class="ph ph-scissors mr-1"></i>{{ client.visits }} visits</span>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+      <div style="font-size:0.78rem;color:var(--app-text-dim)">
+        <i class="ph ph-clock mr-1"></i>{{ client.daysSince }} days ago
+      </div>
+      <div style="font-size:0.78rem;color:var(--app-text-dim)">
+        <i class="ph ph-scissors mr-1"></i>{{ client.visits }} visits
+      </div>
     </div>
-    <div v-if="client.notes" style="font-size:0.78rem;color:#9ca3af;line-height:1.5;margin-bottom:8px;padding:8px;background:#0f0f0f;border-radius:6px;border:1px solid #1e1e1e">
-      {{ client.notes }}
+
+    <div v-if="client.notes" class="app-card" style="background:var(--app-surface-2);padding:12px;border-radius:8px;margin-bottom:10px">
+      <p style="font-size:0.78rem;color:var(--app-text-dim);line-height:1.5;margin:0">{{ client.notes }}</p>
     </div>
-    <div v-if="client.suggestedUpsell" style="font-size:0.75rem;color:#b8960c;font-style:italic">
-      <i class="ph ph-trend-up mr-1"></i>{{ client.suggestedUpsell }}
+
+    <div v-if="client.suggestedUpsell" class="app-card gold" style="padding:10px 14px">
+      <div style="font-size:0.78rem;color:var(--app-gold);font-style:italic">
+        <i class="ph ph-sparkle mr-1"></i>{{ client.suggestedUpsell }}
+      </div>
     </div>
   </div>
 </template>

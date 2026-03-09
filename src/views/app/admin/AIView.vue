@@ -1,14 +1,82 @@
 <script setup>
 import QueVexChat from '../../../components/app/QueVexChat.vue'
 </script>
+
 <template>
-  <div class="font-inter flex flex-col" style="height:calc(100vh - 92px)">
-    <div class="px-6 pt-5 pb-4 flex-shrink-0" style="border-bottom:1px solid #1a1a1a">
-      <div style="font-size:1.1rem;font-weight:700;color:#e5e7eb;margin-bottom:2px">QueVex AI — Location Intelligence</div>
-      <div style="font-size:0.8rem;color:#6b7280">Ask about your clients, revenue, schedule, staff, and membership — specific to your location.</div>
+  <div class="ai-page">
+    <div class="ai-page-header">
+      <div class="ai-page-title-group">
+        <div class="ai-orb">
+          <i class="ph ph-sparkle"></i>
+        </div>
+        <div>
+          <h1 class="ai-page-title">QueVex Intelligence</h1>
+          <p class="ai-page-sub">Optimize your location's operations, team performance, and revenue</p>
+        </div>
+      </div>
     </div>
-    <div class="flex-1 overflow-hidden">
+    <div class="ai-chat-wrapper">
       <QueVexChat role="admin" />
     </div>
   </div>
 </template>
+
+<style scoped>
+.ai-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  gap: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.ai-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.ai-page-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ai-orb {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #c9a84c 0%, #8a6a1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #000;
+  box-shadow: 0 0 24px rgba(201, 168, 76, 0.35);
+  flex-shrink: 0;
+}
+
+.ai-page-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--app-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.ai-page-sub {
+  font-size: 0.78rem;
+  color: var(--app-text-muted);
+  margin: 2px 0 0;
+}
+
+.ai-chat-wrapper {
+  flex: 1;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+}
+</style>
