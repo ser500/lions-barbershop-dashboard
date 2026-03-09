@@ -2,7 +2,7 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="/src/assets/images/logo/logo-white.webp" alt="Lion's Lounge" class="footer-logo-img" />
+        <img src="/images/logo/logo-white.webp" alt="Lion's Lounge" class="footer-logo-img" />
         <p>Orlando's premier barbershop. Est. May 2024.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/lionsloungebarbershop" target="_blank">📸</a>

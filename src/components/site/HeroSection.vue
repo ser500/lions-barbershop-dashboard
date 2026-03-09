@@ -63,7 +63,7 @@ onMounted(() => {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('/src/assets/images/backgrounds/hero-bg.webp') center/cover no-repeat;
+  background: url('/images/backgrounds/hero-bg.webp') center/cover no-repeat;
 }
 .hero-overlay {
   position: absolute;

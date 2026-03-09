@@ -75,7 +75,7 @@ const modules = [Autoplay]
 
 function trackIntent(name, url) { trackBookingIntent(name, url) }
 
-const I = (f) => `/src/assets/images/services/${f}`
+const I = (f) => `/images/services/${f}`
 
 const coreServices = [
   { icon: I('man.svg'),           name: "Men's Haircut",    desc: "Includes consultation, wash, precise cut, professional styling, and daily maintenance tips. (30–40 min)" },

@@ -32,10 +32,10 @@ import { useScrollReveal } from '../../composables/useScrollReveal.js'
 useScrollReveal()
 
 const reviews = [
-  { name: 'Christophe Guynn', text: "One of the best haircuts I've had for a long time. Great service. Great atmosphere. I'll definitely be going here from now on!", meta: 'Google Review · Jun 2024', photo: '/src/assets/images/reviews/christophe.webp' },
-  { name: 'Charles Fisher', text: 'Great haircut and finally got my hair to style the way I wanted it to for years. Vinicius is amazing and you won\'t be disappointed.', meta: 'Google Review · Jun 2024', photo: '/src/assets/images/reviews/charles.webp' },
-  { name: 'Nick Santos', text: 'From the moment I walked in, I was greeted with warmth and professionalism. The modern yet inviting decor immediately set the tone for a luxurious experience.', meta: 'Google Review · Jun 2024', photo: '/src/assets/images/reviews/nick.webp' },
-  { name: 'Peter Parise', text: 'Great service, clean atmosphere, Vinicius my barber is very detailed.', meta: 'Google Review · Jun 2024', photo: '/src/assets/images/reviews/peter.webp' },
+  { name: 'Christophe Guynn', text: "One of the best haircuts I've had for a long time. Great service. Great atmosphere. I'll definitely be going here from now on!", meta: 'Google Review · Jun 2024', photo: '/images/reviews/christophe.webp' },
+  { name: 'Charles Fisher', text: 'Great haircut and finally got my hair to style the way I wanted it to for years. Vinicius is amazing and you won\'t be disappointed.', meta: 'Google Review · Jun 2024', photo: '/images/reviews/charles.webp' },
+  { name: 'Nick Santos', text: 'From the moment I walked in, I was greeted with warmth and professionalism. The modern yet inviting decor immediately set the tone for a luxurious experience.', meta: 'Google Review · Jun 2024', photo: '/images/reviews/nick.webp' },
+  { name: 'Peter Parise', text: 'Great service, clean atmosphere, Vinicius my barber is very detailed.', meta: 'Google Review · Jun 2024', photo: '/images/reviews/peter.webp' },
 ]
 </script>
 

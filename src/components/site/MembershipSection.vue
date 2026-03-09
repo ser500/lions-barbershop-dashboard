@@ -86,7 +86,7 @@ const plans = [
   padding: 100px 24px;
   background:
     linear-gradient(to bottom, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.92) 100%),
-    url('/src/assets/images/membership-banner.webp') center/cover no-repeat;
+    url('/images/membership-banner.webp') center/cover no-repeat;
   background-color: var(--color-dark);
 }
 .membership-inner { max-width: 1200px; margin: 0 auto; }

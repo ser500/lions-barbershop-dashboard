@@ -2,7 +2,7 @@
   <nav class="navbar" :class="{ scrolled: isScrolled }">
     <div class="nav-inner">
       <a href="/" class="nav-logo">
-        <img src="/src/assets/images/logo/logo-white.webp" alt="Lion's Lounge Barbershop" class="logo-img" />
+        <img src="/images/logo/logo-white.webp" alt="Lion's Lounge Barbershop" class="logo-img" />
       </a>
       <ul class="nav-links">
         <li><a href="#home">HOME</a></li>
@@ -23,6 +23,8 @@
         <li class="nav-sep">|</li>
         <li><a href="#faq" @click="track('FAQ', '#faq', 'nav')">FAQ</a></li>
       </ul>
+      <a href="/login" class="nav-login">LOGIN</a>
+      <a href="/login" class="nav-login-mobile">LOGIN</a>
       <button class="hamburger" :class="{ open: menuOpen }" @click="menuOpen = !menuOpen" aria-label="Menu">
         <span /><span /><span />
       </button>
@@ -41,6 +43,7 @@
         @click="trackIntent('Book Now - Mobile Nav', 'https://vagaro.com/lionsloungebarbershop')">
         BOOK NOW
       </a>
+      <a href="/login" class="mobile-login">LOGIN</a>
     </div>
   </nav>
 </template>
@@ -100,7 +103,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   list-style: none;
   align-items: center;
   gap: 20px;
-  margin-left: auto;
+  flex: 1;
+  justify-content: center;
 }
 .nav-links a {
   font-family: var(--font-display);
@@ -114,6 +118,27 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   color: rgba(255,255,255,0.35);
   font-size: 0.75rem;
   user-select: none;
+}
+.nav-login {
+  flex-shrink: 0;
+  padding: 0.45rem 1.1rem;
+  background: #c9a84c;
+  color: #ffffff;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+.nav-login:hover {
+  background: #dbb95a;
+  color: #ffffff;
+}
+.nav-login:active { transform: scale(0.97); }
+.nav-login-mobile {
+  display: none;
 }
 .hamburger {
   display: none;
@@ -165,8 +190,35 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   border-radius: 6px;
   font-size: 0.78rem;
 }
+.mobile-login {
+  justify-content: center;
+  text-align: center;
+  min-height: 48px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  background: #c9a84c;
+  color: #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+.mobile-login:hover { background: #dbb95a; color: #ffffff !important; }
 @media (max-width: 768px) {
   .nav-links { display: none; }
+  .nav-login { display: none; }
+  .nav-login-mobile {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0.4rem 0.9rem;
+    background: #c9a84c;
+    color: #ffffff;
+    border-radius: 6px;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
   .hamburger { display: flex; }
 }
 </style>

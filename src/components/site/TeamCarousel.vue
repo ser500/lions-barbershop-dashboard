@@ -60,12 +60,12 @@ function trackIntent(name) {
 }
 
 const team = [
-  { name: 'Gabriel & Isabelle', role: 'Owners', specialty: 'Visionary minds behind Lion\'s Lounge — luxury, innovation, world-class experience.', photo: '/src/assets/images/team/gabriel-isabelle.webp' },
-  { name: 'Bormann', role: 'Senior Barber · 20 yrs exp', specialty: 'Expert in scissor cuts, male grooming, and image consulting.', photo: '/src/assets/images/team/bormann.webp' },
-  { name: 'Ulysses', role: 'Barber · 10 yrs exp', specialty: 'Masters all hair types — beard expert and artist for all ages.', photo: '/src/assets/images/team/ulysses.webp' },
-  { name: 'Enzo', role: 'Barber', specialty: 'Hair Art · Designs · Creative cuts.', photo: '/src/assets/images/team/enzo.webp' },
-  { name: 'Guido', role: 'Barber · 9 yrs exp', specialty: 'Fade and beard expert. Passionate and detail-driven.', photo: '/src/assets/images/team/guido.webp' },
-  { name: 'Vinicius', role: 'Barber · 10 yrs exp', specialty: 'Passionate about growth, precision, and top service.', photo: '/src/assets/images/team/vinicius.webp' },
+  { name: 'Gabriel & Isabelle', role: 'Owners', specialty: 'Visionary minds behind Lion\'s Lounge — luxury, innovation, world-class experience.', photo: '/images/team/gabriel-isabelle.webp' },
+  { name: 'Bormann', role: 'Senior Barber · 20 yrs exp', specialty: 'Expert in scissor cuts, male grooming, and image consulting.', photo: '/images/team/bormann.webp' },
+  { name: 'Ulysses', role: 'Barber · 10 yrs exp', specialty: 'Masters all hair types — beard expert and artist for all ages.', photo: '/images/team/ulysses.webp' },
+  { name: 'Enzo', role: 'Barber', specialty: 'Hair Art · Designs · Creative cuts.', photo: '/images/team/enzo.webp' },
+  { name: 'Guido', role: 'Barber · 9 yrs exp', specialty: 'Fade and beard expert. Passionate and detail-driven.', photo: '/images/team/guido.webp' },
+  { name: 'Vinicius', role: 'Barber · 10 yrs exp', specialty: 'Passionate about growth, precision, and top service.', photo: '/images/team/vinicius.webp' },
 ]
 </script>
 
